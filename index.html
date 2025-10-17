@@ -1,136 +1,186 @@
-import React, { useState } from 'react';
-import { FileText, TrendingUp, AlertCircle, CheckCircle, Download } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Financeiro Rápido</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        
+        // Ícones SVG
+        const FileText = () => (
+            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+        );
+        
+        const TrendingUp = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+        );
+        
+        const CheckCircle = () => (
+            <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
+        
+        const AlertCircle = () => (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
 
-const DiagnosticoFinanceiro = () => {
-  const [respostas, setRespostas] = useState({
-    saldoAtual: '',
-    rendaMensal: '',
-    maioresGastos: '',
-    economiaAutomatica: '',
-    ultimoObjetivo: ''
-  });
-  
-  const [mostrarResultado, setMostrarResultado] = useState(false);
+        const Download = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+        );
 
-  const perfis = [
-    {
-      nome: "Devedor",
-      nivel: 1,
-      caracteristicas: "Gasta mais do que ganha, acumula dívidas de forma crescente",
-      foco: "Sobrevivência financeira, pagamento de juros constantes",
-      cor: "bg-red-500"
-    },
-    {
-      nome: "Pagador",
-      nivel: 2,
-      caracteristicas: "Gasta mais do que ganha, risco de adquirir dívidas",
-      foco: "Sobreviver financeiramente, tentar fechar o mês no positivo",
-      cor: "bg-orange-500"
-    },
-    {
-      nome: "Zero a Zero Obrigatório",
-      nivel: 3,
-      caracteristicas: "Termina o mês sem dívidas por obrigação circunstancial",
-      foco: "Equilibrar o mês, maximizar consumo presente",
-      cor: "bg-yellow-500"
-    },
-    {
-      nome: "Zero a Zero Voluntário",
-      nivel: 4,
-      caracteristicas: "Poderia economizar, mas opta por gastar tudo conscientemente",
-      foco: "Maximizar experiências e posses no presente",
-      cor: "bg-lime-500"
-    },
-    {
-      nome: "Poupador",
-      nivel: 5,
-      caracteristicas: "Consegue guardar dinheiro, mas sem estratégia de investimento",
-      foco: "Segurança financeira, crescimento de reserva",
-      cor: "bg-green-500"
-    },
-    {
-      nome: "Investidor",
-      nivel: 6,
-      caracteristicas: "Poupa e investe regularmente com alguma estratégia",
-      foco: "Crescimento patrimonial, aprendizado sobre investimentos",
-      cor: "bg-blue-500"
-    },
-    {
-      nome: "Investidor Completo",
-      nivel: 7,
-      caracteristicas: "Sistema completo de investimentos diversificados e alinhados a metas",
-      foco: "Otimização de carteira, maximização de retorno/risco",
-      cor: "bg-purple-500"
-    }
-  ];
+        const DiagnosticoFinanceiro = () => {
+            const [respostas, setRespostas] = useState({
+                saldoAtual: '',
+                rendaMensal: '',
+                maioresGastos: '',
+                economiaAutomatica: '',
+                ultimoObjetivo: ''
+            });
+            
+            const [mostrarResultado, setMostrarResultado] = useState(false);
 
-  const calcularPerfil = () => {
-    const saldo = parseFloat(respostas.saldoAtual.replace(/[^\d.-]/g, '')) || 0;
-    const renda = parseFloat(respostas.rendaMensal.replace(/[^\d.-]/g, '')) || 1;
-    const economia = parseFloat(respostas.economiaAutomatica.replace(/[^\d.-]/g, '')) || 0;
-    
-    const gastosTexto = respostas.maioresGastos.toLowerCase();
-    const numerosGastos = respostas.maioresGastos.match(/\d+/g) || [];
-    const totalGastos = numerosGastos.reduce((sum, num) => sum + parseFloat(num), 0);
-    
-    const percentualEconomia = (economia / renda) * 100;
-    const percentualGastos = (totalGastos / renda) * 100;
-    
-    const temDividas = gastosTexto.includes('dívida') || gastosTexto.includes('divida') || 
-                       gastosTexto.includes('empréstimo') || gastosTexto.includes('emprestimo') ||
-                       gastosTexto.includes('cartão') || gastosTexto.includes('cartao');
-    
-    const investeTexto = respostas.economiaAutomatica.toLowerCase();
-    const investe = investeTexto.includes('invest') || investeTexto.includes('aplica') ||
-                   investeTexto.includes('ações') || investeTexto.includes('acoes') ||
-                   investeTexto.includes('fundo') || investeTexto.includes('renda fixa');
-    
-    if (temDividas || saldo < 0) {
-      return perfis[0];
-    }
-    
-    if (totalGastos > renda * 0.95 && economia === 0 && !temDividas) {
-      return perfis[1];
-    }
-    
-    if (percentualGastos > 50 && economia === 0) {
-      return perfis[2];
-    }
-    
-    if (percentualGastos > 30 && percentualGastos <= 50 && economia === 0) {
-      return perfis[3];
-    }
-    
-    if (economia > 0 && !investe) {
-      return perfis[4];
-    }
-    
-    if (economia > 0 && investe && percentualEconomia < 15) {
-      return perfis[5];
-    }
-    
-    if (economia > 0 && investe && 
-        respostas.ultimoObjetivo && respostas.ultimoObjetivo.length > 20 &&
-        percentualEconomia >= 15) {
-      return perfis[6];
-    }
-    
-    return perfis[4];
-  };
+            const perfis = [
+                {
+                    nome: "Devedor",
+                    nivel: 1,
+                    caracteristicas: "Gasta mais do que ganha, acumula dívidas de forma crescente",
+                    foco: "Sobrevivência financeira, pagamento de juros constantes",
+                    cor: "bg-red-500"
+                },
+                {
+                    nome: "Pagador",
+                    nivel: 2,
+                    caracteristicas: "Gasta mais do que ganha, risco de adquirir dívidas",
+                    foco: "Sobreviver financeiramente, tentar fechar o mês no positivo",
+                    cor: "bg-orange-500"
+                },
+                {
+                    nome: "Zero a Zero Obrigatório",
+                    nivel: 3,
+                    caracteristicas: "Termina o mês sem dívidas por obrigação circunstancial",
+                    foco: "Equilibrar o mês, maximizar consumo presente",
+                    cor: "bg-yellow-500"
+                },
+                {
+                    nome: "Zero a Zero Voluntário",
+                    nivel: 4,
+                    caracteristicas: "Poderia economizar, mas opta por gastar tudo conscientemente",
+                    foco: "Maximizar experiências e posses no presente",
+                    cor: "bg-lime-500"
+                },
+                {
+                    nome: "Poupador",
+                    nivel: 5,
+                    caracteristicas: "Consegue guardar dinheiro, mas sem estratégia de investimento",
+                    foco: "Segurança financeira, crescimento de reserva",
+                    cor: "bg-green-500"
+                },
+                {
+                    nome: "Investidor",
+                    nivel: 6,
+                    caracteristicas: "Poupa e investe regularmente com alguma estratégia",
+                    foco: "Crescimento patrimonial, aprendizado sobre investimentos",
+                    cor: "bg-blue-500"
+                },
+                {
+                    nome: "Investidor Completo",
+                    nivel: 7,
+                    caracteristicas: "Sistema completo de investimentos diversificados e alinhados a metas",
+                    foco: "Otimização de carteira, maximização de retorno/risco",
+                    cor: "bg-purple-500"
+                }
+            ];
 
-  const handleSubmit = () => {
-    if (respostas.saldoAtual && respostas.rendaMensal && respostas.maioresGastos && 
-        respostas.economiaAutomatica && respostas.ultimoObjetivo) {
-      setMostrarResultado(true);
-    }
-  };
+            const calcularPerfil = () => {
+                const saldo = parseFloat(respostas.saldoAtual.replace(/[^\d.-]/g, '')) || 0;
+                const renda = parseFloat(respostas.rendaMensal.replace(/[^\d.-]/g, '')) || 1;
+                const economia = parseFloat(respostas.economiaAutomatica.replace(/[^\d.-]/g, '')) || 0;
+                
+                const gastosTexto = respostas.maioresGastos.toLowerCase();
+                const numerosGastos = respostas.maioresGastos.match(/\d+/g) || [];
+                const totalGastos = numerosGastos.reduce((sum, num) => sum + parseFloat(num), 0);
+                
+                const percentualEconomia = (economia / renda) * 100;
+                const percentualGastos = (totalGastos / renda) * 100;
+                
+                const temDividas = gastosTexto.includes('dívida') || gastosTexto.includes('divida') || 
+                                   gastosTexto.includes('empréstimo') || gastosTexto.includes('emprestimo') ||
+                                   gastosTexto.includes('cartão') || gastosTexto.includes('cartao');
+                
+                const investeTexto = respostas.economiaAutomatica.toLowerCase();
+                const investe = investeTexto.includes('invest') || investeTexto.includes('aplica') ||
+                               investeTexto.includes('ações') || investeTexto.includes('acoes') ||
+                               investeTexto.includes('fundo') || investeTexto.includes('renda fixa');
+                
+                if (temDividas || saldo < 0) {
+                    return perfis[0];
+                }
+                
+                if (totalGastos > renda * 0.95 && economia === 0 && !temDividas) {
+                    return perfis[1];
+                }
+                
+                if (percentualGastos > 50 && economia === 0) {
+                    return perfis[2];
+                }
+                
+                if (percentualGastos > 30 && percentualGastos <= 50 && economia === 0) {
+                    return perfis[3];
+                }
+                
+                if (economia > 0 && !investe) {
+                    return perfis[4];
+                }
+                
+                if (economia > 0 && investe && percentualEconomia < 15) {
+                    return perfis[5];
+                }
+                
+                if (economia > 0 && investe && 
+                    respostas.ultimoObjetivo && respostas.ultimoObjetivo.length > 20 &&
+                    percentualEconomia >= 15) {
+                    return perfis[6];
+                }
+                
+                return perfis[4];
+            };
 
-  const perfil = mostrarResultado ? calcularPerfil() : null;
+            const handleSubmit = () => {
+                if (respostas.saldoAtual && respostas.rendaMensal && respostas.maioresGastos && 
+                    respostas.economiaAutomatica && respostas.ultimoObjetivo) {
+                    setMostrarResultado(true);
+                }
+            };
 
-  const gerarPDF = () => {
-    const dataAtual = new Date().toLocaleDateString('pt-BR');
-    
-    const conteudoPDF = `
+            const perfil = mostrarResultado ? calcularPerfil() : null;
+
+            const gerarPDF = () => {
+                const dataAtual = new Date().toLocaleDateString('pt-BR');
+                
+                const conteudoPDF = `
 ═══════════════════════════════════════════════════════════
         DIAGNÓSTICO FINANCEIRO RÁPIDO
         Revolução Financeira em 30 Dias
@@ -180,185 +230,188 @@ seu Mapa de Propósito!
 ═══════════════════════════════════════════════════════════
         © Revolução Financeira em 30 Dias
 ═══════════════════════════════════════════════════════════
-    `;
+                `;
 
-    const blob = new Blob([conteudoPDF], { type: 'text/plain;charset=utf-8' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Diagnostico-Financeiro-${new Date().getTime()}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-  };
+                const blob = new Blob([conteudoPDF], { type: 'text/plain;charset=utf-8' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `Diagnostico-Financeiro-${new Date().getTime()}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
-          <div className="flex items-center gap-3 mb-4">
-            <FileText className="w-10 h-10 text-indigo-600" />
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800">Diagnóstico Financeiro Rápido</h1>
-              <p className="text-gray-600">Revolução Financeira em 30 Dias - Aula 1</p>
-            </div>
-          </div>
-          <p className="text-gray-700">
-            Responda às 5 perguntas abaixo para identificar seu perfil financeiro atual. 
-            Seja honesto(a) - isso é fundamental para sua transformação!
-          </p>
-        </div>
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
+                            <div className="flex items-center gap-3 mb-4">
+                                <FileText />
+                                <div>
+                                    <h1 className="text-3xl font-bold text-gray-800">Diagnóstico Financeiro Rápido</h1>
+                                    <p className="text-gray-600">Revolução Financeira em 30 Dias - Aula 1</p>
+                                </div>
+                            </div>
+                            <p className="text-gray-700">
+                                Responda às 5 perguntas abaixo para identificar seu perfil financeiro atual. 
+                                Seja honesto(a) - isso é fundamental para sua transformação!
+                            </p>
+                        </div>
 
-        {!mostrarResultado && (
-          <div className="bg-white rounded-lg shadow-lg p-8 space-y-6">
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-2">
-                1. Qual o saldo atual aproximado de todas as suas contas?
-              </label>
-              <p className="text-sm text-gray-600 mb-3">
-                Soma de todas as contas bancárias, investimentos de liquidez imediata, etc.
-              </p>
-              <input
-                type="text"
-                value={respostas.saldoAtual}
-                onChange={(e) => setRespostas({...respostas, saldoAtual: e.target.value})}
-                placeholder="Ex: R$ 5.000"
-                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
-              />
-            </div>
+                        {!mostrarResultado && (
+                            <div className="bg-white rounded-lg shadow-lg p-8 space-y-6">
+                                <div>
+                                    <label className="block text-lg font-semibold text-gray-800 mb-2">
+                                        1. Qual o saldo atual aproximado de todas as suas contas?
+                                    </label>
+                                    <p className="text-sm text-gray-600 mb-3">
+                                        Soma de todas as contas bancárias, investimentos de liquidez imediata, etc.
+                                    </p>
+                                    <input
+                                        type="text"
+                                        value={respostas.saldoAtual}
+                                        onChange={(e) => setRespostas({...respostas, saldoAtual: e.target.value})}
+                                        placeholder="Ex: R$ 5.000"
+                                        className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
+                                    />
+                                </div>
 
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-2">
-                2. Qual sua renda mensal total após impostos?
-              </label>
-              <p className="text-sm text-gray-600 mb-3">
-                Valor líquido que efetivamente chega às suas mãos
-              </p>
-              <input
-                type="text"
-                value={respostas.rendaMensal}
-                onChange={(e) => setRespostas({...respostas, rendaMensal: e.target.value})}
-                placeholder="Ex: R$ 4.500"
-                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
-              />
-            </div>
+                                <div>
+                                    <label className="block text-lg font-semibold text-gray-800 mb-2">
+                                        2. Qual sua renda mensal total após impostos?
+                                    </label>
+                                    <p className="text-sm text-gray-600 mb-3">
+                                        Valor líquido que efetivamente chega às suas mãos
+                                    </p>
+                                    <input
+                                        type="text"
+                                        value={respostas.rendaMensal}
+                                        onChange={(e) => setRespostas({...respostas, rendaMensal: e.target.value})}
+                                        placeholder="Ex: R$ 4.500"
+                                        className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
+                                    />
+                                </div>
 
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-2">
-                3. Quais são seus 3 maiores gastos mensais e seus valores aproximados?
-              </label>
-              <p className="text-sm text-gray-600 mb-3">
-                Identifique onde está concentrado o maior volume de recursos
-              </p>
-              <textarea
-                value={respostas.maioresGastos}
-                onChange={(e) => setRespostas({...respostas, maioresGastos: e.target.value})}
-                placeholder="Ex: Aluguel R$1.200, Alimentação R$800, Transporte R$500"
-                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none h-24"
-              />
-            </div>
+                                <div>
+                                    <label className="block text-lg font-semibold text-gray-800 mb-2">
+                                        3. Quais são seus 3 maiores gastos mensais e seus valores aproximados?
+                                    </label>
+                                    <p className="text-sm text-gray-600 mb-3">
+                                        Identifique onde está concentrado o maior volume de recursos
+                                    </p>
+                                    <textarea
+                                        value={respostas.maioresGastos}
+                                        onChange={(e) => setRespostas({...respostas, maioresGastos: e.target.value})}
+                                        placeholder="Ex: Aluguel R$1.200, Alimentação R$800, Transporte R$500"
+                                        className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none h-24"
+                                    />
+                                </div>
 
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-2">
-                4. Quanto você economiza ou investe mensalmente de forma automática?
-              </label>
-              <p className="text-sm text-gray-600 mb-3">
-                Valor que você direciona para poupança/investimentos sem depender de força de vontade
-              </p>
-              <input
-                type="text"
-                value={respostas.economiaAutomatica}
-                onChange={(e) => setRespostas({...respostas, economiaAutomatica: e.target.value})}
-                placeholder="Ex: R$ 500 em investimentos automáticos"
-                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
-              />
-            </div>
+                                <div>
+                                    <label className="block text-lg font-semibold text-gray-800 mb-2">
+                                        4. Quanto você economiza ou investe mensalmente de forma automática?
+                                    </label>
+                                    <p className="text-sm text-gray-600 mb-3">
+                                        Valor que você direciona para poupança/investimentos sem depender de força de vontade
+                                    </p>
+                                    <input
+                                        type="text"
+                                        value={respostas.economiaAutomatica}
+                                        onChange={(e) => setRespostas({...respostas, economiaAutomatica: e.target.value})}
+                                        placeholder="Ex: R$ 500 em investimentos automáticos"
+                                        className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none"
+                                    />
+                                </div>
 
-            <div>
-              <label className="block text-lg font-semibold text-gray-800 mb-2">
-                5. Qual foi seu último objetivo financeiro realizado e quando aconteceu?
-              </label>
-              <p className="text-sm text-gray-600 mb-3">
-                Demonstra sua capacidade de transformar intenções em resultados concretos
-              </p>
-              <textarea
-                value={respostas.ultimoObjetivo}
-                onChange={(e) => setRespostas({...respostas, ultimoObjetivo: e.target.value})}
-                placeholder="Ex: Comprei um notebook novo em março de 2024 após 6 meses economizando"
-                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none h-24"
-              />
-            </div>
+                                <div>
+                                    <label className="block text-lg font-semibold text-gray-800 mb-2">
+                                        5. Qual foi seu último objetivo financeiro realizado e quando aconteceu?
+                                    </label>
+                                    <p className="text-sm text-gray-600 mb-3">
+                                        Demonstra sua capacidade de transformar intenções em resultados concretos
+                                    </p>
+                                    <textarea
+                                        value={respostas.ultimoObjetivo}
+                                        onChange={(e) => setRespostas({...respostas, ultimoObjetivo: e.target.value})}
+                                        placeholder="Ex: Comprei um notebook novo em março de 2024 após 6 meses economizando"
+                                        className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none h-24"
+                                    />
+                                </div>
 
-            <button
-              onClick={handleSubmit}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
-            >
-              <TrendingUp className="w-5 h-5" />
-              Descobrir Meu Perfil Financeiro
-            </button>
-          </div>
-        )}
+                                <button
+                                    onClick={handleSubmit}
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <TrendingUp />
+                                    Descobrir Meu Perfil Financeiro
+                                </button>
+                            </div>
+                        )}
 
-        {mostrarResultado && perfil && (
-          <div className="space-y-6">
-            <div className={`${perfil.cor} rounded-lg shadow-lg p-8 text-white`}>
-              <div className="flex items-center gap-3 mb-4">
-                <CheckCircle className="w-12 h-12" />
-                <div>
-                  <h2 className="text-3xl font-bold">Seu Perfil Financeiro</h2>
-                  <p className="text-xl opacity-90">Nível {perfil.nivel}: {perfil.nome}</p>
+                        {mostrarResultado && perfil && (
+                            <div className="space-y-6">
+                                <div className={`${perfil.cor} rounded-lg shadow-lg p-8 text-white`}>
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <CheckCircle />
+                                        <div>
+                                            <h2 className="text-3xl font-bold">Seu Perfil Financeiro</h2>
+                                            <p className="text-xl opacity-90">Nível {perfil.nivel}: {perfil.nome}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-lg shadow-lg p-8">
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-4">Características do seu perfil</h3>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="font-semibold text-gray-700">Descrição:</p>
+                                            <p className="text-gray-600">{perfil.caracteristicas}</p>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-gray-700">Foco Principal:</p>
+                                            <p className="text-gray-600">{perfil.foco}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+                                    <div className="flex items-start gap-3">
+                                        <AlertCircle />
+                                        <div>
+                                            <h4 className="font-bold text-gray-800 mb-2">Importante:</h4>
+                                            <p className="text-gray-700">
+                                                Este não é um julgamento de valor, mas sim um ponto de partida honesto para sua jornada. 
+                                                Cada perfil representa um estágio diferente, com desafios e oportunidades específicos.
+                                                Na próxima etapa, você definirá seus Sonhos Tangíveis e criará seu Mapa de Propósito!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => setMostrarResultado(false)}
+                                    className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                                >
+                                    Refazer Diagnóstico
+                                </button>
+
+                                <button
+                                    onClick={gerarPDF}
+                                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <Download />
+                                    Baixar Resultado
+                                </button>
+                            </div>
+                        )}
+                    </div>
                 </div>
-              </div>
-            </div>
+            );
+        };
 
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Características do seu perfil</h3>
-              <div className="space-y-4">
-                <div>
-                  <p className="font-semibold text-gray-700">Descrição:</p>
-                  <p className="text-gray-600">{perfil.caracteristicas}</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-700">Foco Principal:</p>
-                  <p className="text-gray-600">{perfil.foco}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
-              <div className="flex items-start gap-3">
-                <AlertCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-gray-800 mb-2">Importante:</h4>
-                  <p className="text-gray-700">
-                    Este não é um julgamento de valor, mas sim um ponto de partida honesto para sua jornada. 
-                    Cada perfil representa um estágio diferente, com desafios e oportunidades específicos.
-                    Na próxima etapa, você definirá seus Sonhos Tangíveis e criará seu Mapa de Propósito!
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setMostrarResultado(false)}
-              className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-            >
-              Refazer Diagnóstico
-            </button>
-
-            <button
-              onClick={gerarPDF}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Baixar Resultado
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default DiagnosticoFinanceiro;
+        ReactDOM.render(<DiagnosticoFinanceiro />, document.getElementById('root'));
+    </script>
+</body>
+</html>
