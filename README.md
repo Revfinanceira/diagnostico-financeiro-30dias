@@ -11,8 +11,7 @@ Ferramentas interativas do curso de educação financeira.
 ## 👨‍💼 Sobre
 
 **Fernando Martins**  
-Consultor Financeiro | W1 Consultoria  
-5 anos de experiência | +300 famílias atendidas
+Consultor Financeiro |5 anos de experiência | +300 famílias atendidas
 
 ## 📧 Contato
 
