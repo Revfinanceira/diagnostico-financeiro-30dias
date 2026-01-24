@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 5: Micro-Cortes Indolores - Revolução Financeira em 30 Dias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .progress-container {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e9ecef;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #adb5bd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-circle {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed .progress-circle {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+
+        .progress-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .progress-step.active .progress-label {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .step-description {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: #4c51bf;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box p {
+            color: #065f46;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box p {
+            color: #92400e;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .cut-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #10b981;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .nav-button.secondary:hover {
+            background: #f0f4ff;
+        }
+
+        .category-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .category-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .category-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .category-example {
+            font-size: 0.85em;
+            color: #718096;
+        }
+
+        .percentage-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .percentage-option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .percentage-option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .percentage-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .percentage-value {
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .percentage-label {
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .savings-calculator {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 3px solid #10b981;
+        }
+
+        .calculator-title {
+            font-size: 1.5em;
+            color: #065f46;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .savings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .savings-box {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .savings-label {
+            font-size: 0.85em;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+
+        .savings-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .strategy-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .strategy-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .strategy-type {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .total-savings-summary {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 3px solid #f59e0b;
+            text-align: center;
+        }
+
+        .total-title {
+            font-size: 1.8em;
+            color: #92400e;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .total-value {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #dc2626;
+            margin: 20px 0;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .print-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .print-view.active {
+            display: block !important;
+        }
+
+        .print-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .print-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .print-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10000;
+        }
+        
+        .print-view:not(.active) .print-buttons {
+            display: none;
+        }
+        
+        .print-view.active .print-buttons {
+            display: flex !important;
+        }
+
+        .print-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .print-btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            .print-buttons {
+                display: none !important;
+            }
+            
+            .print-content {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .print-view {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .category-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .percentage-selector {
+                flex-direction: column;
+            }
+
+            .savings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✂️ Aula 5: Micro-Cortes Indolores</h1>
+            <p>Economize sem dor ou privação usando micro-ajustes estratégicos de 3-7%</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <div class="progress-label">Selecionar</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <div class="progress-label">Configurar</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-circle">3</div>
+                    <div class="progress-label">Plano</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- PASSO 1: SELEÇÃO DE CATEGORIAS -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">📋 Passo 1: Selecione 3 Categorias</h2>
+                <p class="step-description">Escolha 3 categorias de gastos onde aplicará os micro-cortes indolores.</p>
+
+                <div class="info-box">
+                    <p><strong>💡 A Ciência dos Micro-Cortes:</strong></p>
+                    <p>• Cortes de 3-5% ficam abaixo do "radar de privação" do cérebro</p>
+                    <p>• Taxa de sucesso de 87% após 6 meses (vs 17% de cortes radicais)</p>
+                    <p>• 5 categorias com corte de 3% = 15% de economia total!</p>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ Critérios de Seleção:</strong></p>
+                    <p>✓ Alto potencial de economia (valor significativo)</p>
+                    <p>✓ Baixo impacto emocional (não são suas principais fontes de prazer)</p>
+                    <p>✓ Facilidade de implementação imediata</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Categorias Disponíveis (Selecione 3)</div>
+                    <div class="category-selector" id="categorySelector">
+                        <div class="category-card" onclick="toggleCategory('alimentacao')">
+                            <div class="category-icon">🍽️</div>
+                            <div class="category-name">Alimentação</div>
+                            <div class="category-example">Delivery, restaurantes</div>
+                        </div>
+
+                        <div class="category-card" onclick="toggleCategory('transporte')">
+                            <div class="category-icon">🚗</div>
+                            <div class="category-name">Transporte</div>
+                            <div class="category-example">Combustível, apps</div>
+                        </div>
+
+                        <div class="category-card" onclick="toggleCategory('assinaturas')">
+                            <div class="category-icon">📺</div>
+                            <div class="category-name">Assinaturas</div>
+                            <div class="category-example">Streaming, apps</div>
+                        </div>
+
+                        <div class="category-card" onclick="toggleCategory('lazer')">
+                            <div class="category-icon">🎮</div>
+                            <div class="category-name">Lazer</div>
+                            <div class="category-example">Entretenimento</div>
+                        </div>
+
+                        <div class="category-card" onclick="toggleCategory('compras')">
+                            <div class="category-icon">🛍️</div>
+                            <div class="category-name">Compras</div>
+                            <div class="category-example">Roupas, acessórios</div>
+                        </div>
+
+                        <div class="category-card" onclick="toggleCategory('beleza')">
+                            <div class="category-icon">💄</div>
+                            <div class="category-name">Beleza/Estética</div>
+                            <div class="category-example">Salão, produtos</div>
+                        </div>
+                    </div>
+
+                    <div id="selectedCategoriesInfo" style="margin-top: 20px;"></div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Configurar Micro-Cortes →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 2: CONFIGURAÇÃO -->
+            <div class="step" id="step2">
+                <h2 class="step-title">⚙️ Passo 2: Configure os Micro-Cortes</h2>
+                <p class="step-description">Para cada categoria, defina o gasto atual, percentual de corte e estratégia.</p>
+
+                <div class="info-box">
+                    <p><strong>💡 Guia de Percentuais:</strong></p>
+                    <p>• <strong>3%:</strong> Uso diário/alta frequência (imperceptível)</p>
+                    <p>• <strong>5%:</strong> Uso semanal/média frequência (facilmente adaptável)</p>
+                    <p>• <strong>7%:</strong> Uso ocasional/baixa frequência (confortável)</p>
+                </div>
+
+                <div id="cutsContainer"></div>
+
+                <div id="totalPreview"></div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Ver Plano Completo →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 3: PLANO FINAL -->
+            <div class="step" id="step3">
+                <h2 class="step-title">🎯 Passo 3: Seu Plano de Micro-Cortes</h2>
+                <p class="step-description">Veja o resumo completo do seu plano e comece a implementar!</p>
+
+                <div class="total-savings-summary" id="finalSummary"></div>
+
+                <div class="section">
+                    <div class="section-title">Detalhamento dos Micro-Cortes</div>
+                    <div id="cutsDetail"></div>
+                </div>
+
+                <div class="success-box">
+                    <p><strong>✅ Próximos Passos:</strong></p>
+                    <p>1. <strong>Implemente</strong> pelo menos um micro-corte HOJE</p>
+                    <p>2. <strong>Configure alertas</strong> para os outros cortes</p>
+                    <p>3. <strong>Redirecione</strong> a economia para sua Conta Sonhos</p>
+                    <p>4. <strong>Monitore</strong> por 30 dias</p>
+                    <p>5. <strong>Expanda</strong> com novos cortes de 3% após 60 dias</p>
+                </div>
+
+                <div class="download-section">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">✅ Plano Pronto!</h3>
+                    <p style="color: #718096; margin-bottom: 30px;">Salve seu Plano de Micro-Cortes Indolores</p>
+                    <button class="download-button" onclick="showPrintView()">
+                        📄 Ver Relatório Completo
+                    </button>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="restart()">
+                        🔄 Novo Plano
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualização para Impressão -->
+    <div class="print-view" id="printView">
+        <div class="print-buttons">
+            <button class="print-btn print-btn-primary" onclick="printReport()">🖨️ Imprimir/Salvar PDF</button>
+            <button class="print-btn print-btn-secondary" onclick="closePrintView()">✕ Fechar</button>
+        </div>
+        <div class="print-content" id="printContent"></div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedCategories = [];
+        let cuts = {};
+
+        const categoryData = {
+            alimentacao: {
+                name: 'Alimentação',
+                icon: '🍽️',
+                strategies: [
+                    'Reduzir delivery de 5x para 4x por mês',
+                    'Substituir 1 item premium por alternativa',
+                    'Implementar "segunda sem carne"',
+                    'Preparar marmitas 1x por semana'
+                ]
+            },
+            transporte: {
+                name: 'Transporte',
+                icon: '🚗',
+                strategies: [
+                    'Otimizar rotas reduzindo 5% da quilometragem',
+                    'Carona solidária 1x por semana',
+                    'Alternar transporte público e carro',
+                    'Usar apps com desconto'
+                ]
+            },
+            assinaturas: {
+                name: 'Assinaturas',
+                icon: '📺',
+                strategies: [
+                    'Fazer rodízio entre streamings',
+                    'Compartilhar com familiares',
+                    'Migrar para planos anuais',
+                    'Cancelar serviços pouco utilizados'
+                ]
+            },
+            lazer: {
+                name: 'Lazer',
+                icon: '🎮',
+                strategies: [
+                    'Substituir cinema por streaming 1x/mês',
+                    'Buscar promoções e cupons',
+                    'Alternar programas pagos e gratuitos',
+                    'Aproveitar eventos gratuitos'
+                ]
+            },
+            compras: {
+                name: 'Compras',
+                icon: '🛍️',
+                strategies: [
+                    'Aguardar 48h antes de compras',
+                    'Comprar em outlets',
+                    'Fazer lista e seguir',
+                    'Aproveitar promoções sazonais'
+                ]
+            },
+            beleza: {
+                name: 'Beleza/Estética',
+                icon: '💄',
+                strategies: [
+                    'Espaçar visitas ao salão',
+                    'Alternar produtos premium',
+                    'Fazer procedimentos em casa',
+                    'Negociar pacotes'
+                ]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            updateProgressBar();
+            updateSelectedInfo();
+        });
+
+        function toggleCategory(cat) {
+            const index = selectedCategories.indexOf(cat);
+            if (index > -1) {
+                selectedCategories.splice(index, 1);
+            } else {
+                if (selectedCategories.length >= 3) {
+                    alert('Você já selecionou 3 categorias!');
+                    return;
+                }
+                selectedCategories.push(cat);
+            }
+            updateCategoryUI();
+            updateSelectedInfo();
+            saveData();
+        }
+
+        function updateCategoryUI() {
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            selectedCategories.forEach(cat => {
+                const cards = document.querySelectorAll('.category-card');
+                cards.forEach(card => {
+                    if (card.textContent.includes(categoryData[cat].name)) {
+                        card.classList.add('selected');
+                    }
+                });
+            });
+        }
+
+        function updateSelectedInfo() {
+            const info = document.getElementById('selectedCategoriesInfo');
+            if (selectedCategories.length === 0) {
+                info.innerHTML = '<p style="color: #718096; text-align: center;">Nenhuma categoria selecionada</p>';
+            } else {
+                info.innerHTML = `
+                    <div class="success-box">
+                        <p><strong>✓ Categorias Selecionadas (${selectedCategories.length}/3):</strong></p>
+                        <p>${selectedCategories.map(cat => categoryData[cat].icon + ' ' + categoryData[cat].name).join(', ')}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+                updateProgressBar();
+                if (currentStep === 2) renderCuts();
+                if (currentStep === 3) renderFinal();
+                saveData();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgressBar();
+            }
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentStep - 1) / 2) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) step.classList.add('completed');
+                else if (index + 1 === currentStep) step.classList.add('active');
+            });
+        }
+
+        function validateStep(step) {
+            if (step === 1 && selectedCategories.length !== 3) {
+                alert('Selecione exatamente 3 categorias!');
+                return false;
+            }
+            if (step === 2) {
+                let valid = true;
+                selectedCategories.forEach(cat => {
+                    if (!cuts[cat] || !cuts[cat].value || !cuts[cat].percentage) valid = false;
+                });
+                if (!valid) {
+                    alert('Preencha todos os campos!');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function renderCuts() {
+            const container = document.getElementById('cutsContainer');
+            container.innerHTML = selectedCategories.map(cat => {
+                const data = categoryData[cat];
+                const saved = cuts[cat] || { value: '', percentage: 3, strategy: '' };
+                return `
+                    <div class="cut-item">
+                        <h3 style="font-size: 1.3em; color: #2d3748; margin-bottom: 20px;">
+                            ${data.icon} ${data.name}
+                        </h3>
+                        <div class="input-group">
+                            <label>Gasto Mensal Atual (R$)</label>
+                            <input type="number" value="${saved.value}" min="0" step="10"
+                                   onchange="updateCut('${cat}', 'value', this.value)">
+                        </div>
+                        <div class="input-group">
+                            <label>Percentual de Corte</label>
+                            <div class="percentage-selector">
+                                <div class="percentage-option ${saved.percentage === 3 ? 'selected' : ''}" 
+                                     onclick="updateCut('${cat}', 'percentage', 3)">
+                                    <div class="percentage-value">3%</div>
+                                    <div class="percentage-label">Indolor</div>
+                                </div>
+                                <div class="percentage-option ${saved.percentage === 5 ? 'selected' : ''}" 
+                                     onclick="updateCut('${cat}', 'percentage', 5)">
+                                    <div class="percentage-value">5%</div>
+                                    <div class="percentage-label">Adaptável</div>
+                                </div>
+                                <div class="percentage-option ${saved.percentage === 7 ? 'selected' : ''}" 
+                                     onclick="updateCut('${cat}', 'percentage', 7)">
+                                    <div class="percentage-value">7%</div>
+                                    <div class="percentage-label">Confortável</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Estratégia</label>
+                            <select onchange="updateCut('${cat}', 'strategy', this.value)">
+                                <option value="">Selecione...</option>
+                                ${data.strategies.map(s => 
+                                    `<option value="${s}" ${saved.strategy === s ? 'selected' : ''}>${s}</option>`
+                                ).join('')}
+                            </select>
+                        </div>
+                        <div id="savings-${cat}"></div>
+                    </div>
+                `;
+            }).join('');
+            selectedCategories.forEach(cat => calculateSavings(cat));
+            updateTotal();
+        }
+
+        function updateCut(cat, field, value) {
+            if (!cuts[cat]) cuts[cat] = { percentage: 3 };
+            cuts[cat][field] = field === 'value' || field === 'percentage' ? parseFloat(value) : value;
+            calculateSavings(cat);
+            updateTotal();
+            saveData();
+            if (field === 'percentage') renderCuts();
+        }
+
+        function calculateSavings(cat) {
+            const cut = cuts[cat];
+            if (!cut || !cut.value || !cut.percentage) return;
+            const monthly = cut.value * (cut.percentage / 100);
+            const yearly = monthly * 12;
+            const fiveYear = yearly * 5;
+            const div = document.getElementById(`savings-${cat}`);
+            if (div) {
+                div.innerHTML = `
+                    <div class="savings-calculator">
+                        <div class="calculator-title">💰 Economia Projetada</div>
+                        <div class="savings-grid">
+                            <div class="savings-box">
+                                <div class="savings-label">Mensal</div>
+                                <div class="savings-value">R$ ${monthly.toFixed(2)}</div>
+                            </div>
+                            <div class="savings-box">
+                                <div class="savings-label">Anual</div>
+                                <div class="savings-value">R$ ${yearly.toFixed(2)}</div>
+                            </div>
+                            <div class="savings-box">
+                                <div class="savings-label">5 Anos</div>
+                                <div class="savings-value">R$ ${fiveYear.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function updateTotal() {
+            let monthly = 0;
+            selectedCategories.forEach(cat => {
+                const cut = cuts[cat];
+                if (cut && cut.value && cut.percentage) {
+                    monthly += cut.value * (cut.percentage / 100);
+                }
+            });
+            const yearly = monthly * 12;
+            const div = document.getElementById('totalPreview');
+            if (div && monthly > 0) {
+                div.innerHTML = `
+                    <div class="total-savings-summary">
+                        <div class="total-title">💰 Economia Total</div>
+                        <div class="total-value">R$ ${monthly.toFixed(2)}</div>
+                        <div style="font-size: 1.2em; color: #92400e; margin-top: 10px;">
+                            Por mês | R$ ${yearly.toFixed(2)} por ano
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderFinal() {
+            let monthly = 0;
+            selectedCategories.forEach(cat => {
+                const cut = cuts[cat];
+                if (cut && cut.value && cut.percentage) {
+                    monthly += cut.value * (cut.percentage / 100);
+                }
+            });
+            const yearly = monthly * 12;
+            const fiveYear = yearly * 5;
+
+            document.getElementById('finalSummary').innerHTML = `
+                <div class="total-title">🎯 Economia Total Projetada</div>
+                <div class="total-value">R$ ${monthly.toFixed(2)}</div>
+                <div style="font-size: 1.2em; color: #92400e; margin-top: 15px;">Por mês</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+                    <div style="background: white; padding: 15px; border-radius: 10px;">
+                        <div style="color: #92400e;">Anual</div>
+                        <div style="font-size: 1.8em; font-weight: 700; color: #10b981;">R$ ${yearly.toFixed(2)}</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 10px;">
+                        <div style="color: #92400e;">5 Anos</div>
+                        <div style="font-size: 1.8em; font-weight: 700; color: #10b981;">R$ ${fiveYear.toFixed(2)}</div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('cutsDetail').innerHTML = selectedCategories.map(cat => {
+                const data = categoryData[cat];
+                const cut = cuts[cat];
+                const savings = cut.value * (cut.percentage / 100);
+                const yearSavings = savings * 12;
+                return `
+                    <div class="strategy-card">
+                        <div class="strategy-type">${data.icon} ${data.name}</div>
+                        <div class="strategy-title">Redução de ${cut.percentage}%</div>
+                        <p style="color: #4a5568; margin: 10px 0;"><strong>Gasto:</strong> R$ ${cut.value.toFixed(2)}/mês</p>
+                        <p style="color: #4a5568; margin: 10px 0;"><strong>Economia:</strong> R$ ${savings.toFixed(2)}/mês</p>
+                        <p style="color: #4a5568; margin: 10px 0;"><strong>Por ano:</strong> R$ ${yearSavings.toFixed(2)}</p>
+                        <div style="background: #f0f4ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <strong style="color: #667eea;">Estratégia:</strong>
+                            <p style="color: #4a5568; margin-top: 8px;">${cut.strategy}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showPrintView() {
+            let monthly = 0;
+            selectedCategories.forEach(cat => {
+                const cut = cuts[cat];
+                if (cut && cut.value && cut.percentage) {
+                    monthly += cut.value * (cut.percentage / 100);
+                }
+            });
+            const yearly = monthly * 12;
+            const fiveYear = yearly * 5;
+
+            const html = `
+                <div class="print-header">
+                    <h1 style="font-size: 2.5em;">✂️ Plano de Micro-Cortes Indolores</h1>
+                    <p style="font-size: 1.2em;">Revolução Financeira em 30 Dias</p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">${new Date().toLocaleDateString('pt-BR')}</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 30px; border-radius: 12px; border: 3px solid #f59e0b; text-align: center; margin-bottom: 30px;">
+                    <h2 style="color: #92400e; margin-bottom: 20px;">💰 Resumo</h2>
+                    <p style="font-size: 3.5em; font-weight: 700; color: #dc2626;">R$ ${monthly.toFixed(2)}</p>
+                    <p style="color: #92400e; margin-top: 10px;">Por mês</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div style="background: white; padding: 15px; border-radius: 10px;">
+                            <p style="color: #92400e;">Anual</p>
+                            <p style="font-size: 1.8em; font-weight: 700; color: #10b981;">R$ ${yearly.toFixed(2)}</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 10px;">
+                            <p style="color: #92400e;">5 Anos</p>
+                            <p style="font-size: 1.8em; font-weight: 700; color: #10b981;">R$ ${fiveYear.toFixed(2)}</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">🎯 Seus Micro-Cortes</h2>
+                    ${selectedCategories.map((cat, i) => {
+                        const data = categoryData[cat];
+                        const cut = cuts[cat];
+                        const savings = cut.value * (cut.percentage / 100);
+                        return `
+                            <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #10b981;">
+                                <h3 style="color: #2d3748; margin-bottom: 15px;">#${i+1} - ${data.icon} ${data.name}</h3>
+                                <p style="color: #4a5568; margin: 8px 0;"><strong>Gasto:</strong> R$ ${cut.value.toFixed(2)}/mês</p>
+                                <p style="color: #4a5568; margin: 8px 0;"><strong>Corte:</strong> ${cut.percentage}%</p>
+                                <p style="color: #4a5568; margin: 8px 0;"><strong>Economia:</strong> R$ ${savings.toFixed(2)}/mês</p>
+                                <div style="background: #f0f4ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                                    <p style="color: #667eea; font-weight: 600;">Estratégia:</p>
+                                    <p style="color: #4a5568; margin-top: 8px;">${cut.strategy}</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #e9ecef; color: #718096;">
+                    <p style="font-size: 0.9em; color: #667eea;"><strong>Revolução Financeira em 30 Dias</strong></p>
+                    <p style="font-size: 0.85em; color: #667eea;">Fernando Martins</p>
+                    <p style="font-size: 0.85em; color: #667eea;">Consultor Financeiro</p>
+                </div>
+            `;
+            document.getElementById('printContent').innerHTML = html;
+            document.getElementById('printView').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrintView() {
+            document.getElementById('printView').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function printReport() {
+            window.print();
+        }
+
+        function saveData() {
+            localStorage.setItem('microCortes', JSON.stringify({ selectedCategories, cuts }));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('microCortes');
+            if (saved) {
+                const data = JSON.parse(saved);
+                selectedCategories = data.selectedCategories || [];
+                cuts = data.cuts || {};
+                updateCategoryUI();
+                updateSelectedInfo();
+            }
+        }
+
+        function restart() {
+            if (confirm('Criar novo plano? Os dados atuais serão perdidos.')) {
+                localStorage.removeItem('microCortes');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
