@@ -10,6 +10,7 @@ Ferramentas interativas do curso de educação financeira.
 - [🏦 Aula 3 - Sistema de 3 Contas](https://seu-usuario.github.io/seu-repositorio/aula3/)
 - [🔍 Aula 4 - Caçando Vazamentos Financeiros](https://seu-usuario.github.io/seu-repositorio/aula4/)
 - [✂️ Aula 5 - Micro-Cortes Indolores](https://seu-usuario.github.io/seu-repositorio/aula5/)
+- [💰 Aula 6 - Negociações Financeiras de Alto Impacto](https://seu-usuario.github.io/seu-repositorio/aula6/)
 
 ## 👨‍💼 Sobre
 
