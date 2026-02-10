@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 11: Sustentabilidade do Sistema - Revolução Financeira em 30 Dias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .progress-container {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e9ecef;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #adb5bd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-circle {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed .progress-circle {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+
+        .progress-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .progress-step.active .progress-label {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .step-description {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: #4c51bf;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box p {
+            color: #065f46;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box p {
+            color: #92400e;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .ritual-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .ritual-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ritual-icon {
+            font-size: 2.5em;
+        }
+
+        .ritual-info {
+            flex: 1;
+        }
+
+        .ritual-name {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .ritual-frequency {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .ritual-duration {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .ritual-steps {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .ritual-step {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .ritual-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-weight: 700;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="time"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .nav-button.secondary:hover {
+            background: #f0f4ff;
+        }
+
+        .script-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #ef4444;
+        }
+
+        .script-number {
+            display: inline-block;
+            background: #ef4444;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tracker-day {
+            aspect-ratio: 1;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #718096;
+        }
+
+        .tracker-day:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .tracker-day.completed {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .tracker-day.today {
+            border-color: #667eea;
+            border-width: 3px;
+        }
+
+        .streak-counter {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .streak-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: #92400e;
+        }
+
+        .streak-label {
+            color: #92400e;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .print-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .print-view.active {
+            display: block !important;
+        }
+
+        .print-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .print-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .print-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10000;
+        }
+        
+        .print-view:not(.active) .print-buttons {
+            display: none;
+        }
+        
+        .print-view.active .print-buttons {
+            display: flex !important;
+        }
+
+        .print-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .print-btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            .print-buttons {
+                display: none !important;
+            }
+            
+            .print-content {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .print-view {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .tracker-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ Aula 11: Sustentabilidade do Sistema</h1>
+            <p>Garanta que sua revolução financeira dure para sempre</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <div class="progress-label">Rituais</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <div class="progress-label">Agendamento</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-circle">3</div>
+                    <div class="progress-label">Proteção</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="progress-circle">4</div>
+                    <div class="progress-label">Rastreamento</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- PASSO 1: ENTENDER RITUAIS -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">📋 Passo 1: Os 3 Rituais Essenciais</h2>
+                <p class="step-description">Conheça os rituais que garantem a sustentabilidade do seu sistema.</p>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ O Problema da Maioria:</strong></p>
+                    <p>• <strong>78%</strong> abandonam sistema em menos de 90 dias</p>
+                    <p>• Apenas <strong>8%</strong> mantêm por mais de um ano</p>
+                    <p>• Razões: complexidade (42%), falta de rotina (37%), perda de motivação (35%)</p>
+                    <p><br><strong>A solução:</strong> Rituais simples e consistentes!</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>💡 Os 3 Pilares da Sustentabilidade:</strong></p>
+                    <p>✓ <strong>Simplicidade Estrutural</strong> - processos automatizados, regras claras</p>
+                    <p>✓ <strong>Rituais Minimalistas</strong> - menos de 15 minutos, frequência adequada</p>
+                    <p>✓ <strong>Ancoragem Emocional</strong> - reconexão com sonhos, celebração de marcos</p>
+                    <p><br>Sistemas com estes 3 pilares: <strong>76% de persistência após 12 meses!</strong></p>
+                </div>
+
+                <div class="ritual-card">
+                    <div class="ritual-header">
+                        <div class="ritual-icon">⚡</div>
+                        <div class="ritual-info">
+                            <div class="ritual-name">Verificação Rápida</div>
+                            <div class="ritual-frequency">2x por semana</div>
+                        </div>
+                        <div class="ritual-duration">2 min</div>
+                    </div>
+
+                    <p style="color: #718096; margin-bottom: 15px;">
+                        <strong>Objetivo:</strong> "Batimento cardíaco" do sistema - verificar se tudo está funcionando
+                    </p>
+
+                    <div class="ritual-steps">
+                        <div class="ritual-step">
+                            <span class="step-number">1</span>
+                            <strong>Verificar 3 Contas (60s):</strong> Acessar saldos e confirmar parâmetros
+                        </div>
+                        <div class="ritual-step">
+                            <span class="step-number">2</span>
+                            <strong>Checar Alertas (30s):</strong> Notificações, cobranças inesperadas
+                        </div>
+                        <div class="ritual-step">
+                            <span class="step-number">3</span>
+                            <strong>Ajuste Rápido (30s):</strong> Pequenas correções se necessário
+                        </div>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 15px;">
+                        <p><strong>💡 Benefício:</strong> Detecta problemas 7 dias antes, resolução 3,4x mais fácil!</p>
+                    </div>
+                </div>
+
+                <div class="ritual-card">
+                    <div class="ritual-header">
+                        <div class="ritual-icon">📊</div>
+                        <div class="ritual-info">
+                            <div class="ritual-name">Revisão Semanal</div>
+                            <div class="ritual-frequency">1x por semana</div>
+                        </div>
+                        <div class="ritual-duration">5 min</div>
+                    </div>
+
+                    <p style="color: #718096; margin-bottom: 15px;">
+                        <strong>Objetivo:</strong> "Check-up" do sistema - analisar padrões e ajustar
+                    </p>
+
+                    <div class="ritual-steps">
+                        <div class="ritual-step">
+                            <span class="step-number">1</span>
+                            <strong>Revisar Gastos (2min):</strong> Identificar 3-5 maiores gastos da semana
+                        </div>
+                        <div class="ritual-step">
+                            <span class="step-number">2</span>
+                            <strong>Verificar Progresso (2min):</strong> Atualizar Conta Sonhos e Mapa
+                        </div>
+                        <div class="ritual-step">
+                            <span class="step-number">3</span>
+                            <strong>Ajustar Prioridades (1min):</strong> Definir 1-2 focos para próxima semana
+                        </div>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 15px;">
+                        <p><strong>💡 Benefício:</strong> 68% menos uso de cheque especial ou rotativo!</p>
+                    </div>
+                </div>
+
+                <div class="ritual-card">
+                    <div class="ritual-header">
+                        <div class="ritual-icon">🎯</div>
+                        <div class="ritual-info">
+                            <div class="ritual-name">Alinhamento Mensal</div>
+                            <div class="ritual-frequency">1x por mês</div>
+                        </div>
+                        <div class="ritual-duration">15 min</div>
+                    </div>
+
+                    <p style="color: #718096; margin-bottom: 15px;">
+                        <strong>Objetivo:</strong> "Manutenção preventiva" - avaliar e reconectar emocionalmente
+                    </p>
+
+                    <div class="ritual-steps">
+                        <div class="ritual-step">
+                            <span class="step-number">1</span>
+                            <strong>Análise de Resultados (5min):</strong> Comparar gastos com planejado
+                        </div>
+                        <div class="ritual-step">
+                            <span class="step-number">2</span>
+                            <strong>Revisar Automações (5min):</strong> Verificar contratos e oportunidades
+                        </div>
+                        <div class="ritual-step">
+                            <span class="step-number">3</span>
+                            <strong>Reconexão com Sonhos (5min):</strong> Visualizar Mapa e celebrar progresso
+                        </div>
+                    </div>
+
+                    <div class="success-box" style="margin-top: 15px;">
+                        <p><strong>💡 Benefício:</strong> 3,7x mais probabilidade de persistir após um ano!</p>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Agendar Rituais →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 2: AGENDAMENTO -->
+            <div class="step" id="step2">
+                <h2 class="step-title">📅 Passo 2: Agende Seus Rituais</h2>
+                <p class="step-description">Defina dias e horários específicos para cada ritual.</p>
+
+                <div class="info-box">
+                    <p><strong>💡 Ciência dos Micro-Hábitos:</strong></p>
+                    <p>• Rituais <strong>menores que 10 minutos</strong> têm 3,7x mais chance de virar hábito</p>
+                    <p>• <strong>Consistência na frequência</strong> é mais importante que duração</p>
+                    <p>• Associar a <strong>gatilhos existentes</strong> aumenta em 83% a aderência</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⚡ Verificação Rápida (2x/semana - 2min)</div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group">
+                            <label>Dia 1</label>
+                            <select id="quickDay1" onchange="saveSchedule()">
+                                <option value="">Selecione...</option>
+                                <option value="segunda">Segunda-feira</option>
+                                <option value="terça">Terça-feira</option>
+                                <option value="quarta">Quarta-feira</option>
+                                <option value="quinta">Quinta-feira</option>
+                                <option value="sexta">Sexta-feira</option>
+                                <option value="sábado">Sábado</option>
+                                <option value="domingo">Domingo</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Horário 1</label>
+                            <input type="time" id="quickTime1" onchange="saveSchedule()">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Dia 2</label>
+                            <select id="quickDay2" onchange="saveSchedule()">
+                                <option value="">Selecione...</option>
+                                <option value="segunda">Segunda-feira</option>
+                                <option value="terça">Terça-feira</option>
+                                <option value="quarta">Quarta-feira</option>
+                                <option value="quinta">Quinta-feira</option>
+                                <option value="sexta">Sexta-feira</option>
+                                <option value="sábado">Sábado</option>
+                                <option value="domingo">Domingo</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Horário 2</label>
+                            <input type="time" id="quickTime2" onchange="saveSchedule()">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Gatilho Comportamental (o que você faz antes?)</label>
+                        <input type="text" 
+                               id="quickTrigger"
+                               placeholder="Ex: Logo após tomar café da manhã, ao chegar no trabalho..."
+                               onchange="saveSchedule()">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 Revisão Semanal (1x/semana - 5min)</div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group">
+                            <label>Dia da Semana</label>
+                            <select id="weeklyDay" onchange="saveSchedule()">
+                                <option value="">Selecione...</option>
+                                <option value="segunda">Segunda-feira</option>
+                                <option value="terça">Terça-feira</option>
+                                <option value="quarta">Quarta-feira</option>
+                                <option value="quinta">Quinta-feira</option>
+                                <option value="sexta">Sexta-feira</option>
+                                <option value="sábado">Sábado</option>
+                                <option value="domingo">Domingo</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Horário</label>
+                            <input type="time" id="weeklyTime" onchange="saveSchedule()">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Local/Contexto</label>
+                        <input type="text" 
+                               id="weeklyContext"
+                               placeholder="Ex: Em casa no sofá, no escritório antes de sair..."
+                               onchange="saveSchedule()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Pequena Recompensa Associada</label>
+                        <input type="text" 
+                               id="weeklyReward"
+                               placeholder="Ex: Uma xícara de café especial, assistir 1 episódio de série..."
+                               onchange="saveSchedule()">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🎯 Alinhamento Mensal (1x/mês - 15min)</div>
+                    
+                    <div class="input-group">
+                        <label>Dia do Mês</label>
+                        <select id="monthlyDay" onchange="saveSchedule()">
+                            <option value="">Selecione...</option>
+                            <option value="1">Dia 1</option>
+                            <option value="5">Dia 5</option>
+                            <option value="10">Dia 10</option>
+                            <option value="15">Dia 15</option>
+                            <option value="20">Dia 20</option>
+                            <option value="25">Dia 25</option>
+                            <option value="ultimo">Último dia do mês</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Horário</label>
+                        <input type="time" id="monthlyTime" onchange="saveSchedule()">
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ IMPORTANTE:</strong> Configure estes lembretes no seu calendário (Google Calendar, Outlook, etc) <strong>AGORA MESMO</strong>!</p>
+                    <p>Não deixe para depois - isso é o que separa quem realiza de quem só planeja.</p>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Scripts de Proteção →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 3: SCRIPTS DE PROTEÇÃO -->
+            <div class="step" id="step3">
+                <h2 class="step-title">🛡️ Passo 3: Scripts de Proteção</h2>
+                <p class="step-description">Prepare-se para situações que ameaçam sua consistência.</p>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ Situações de Risco Comuns:</strong></p>
+                    <p>• Períodos de maior estresse ou ocupação</p>
+                    <p>• Viagens e mudanças de rotina</p>
+                    <p>• Eventos sociais com pressão de gastos</p>
+                    <p>• Momentos de baixa motivação</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>💡 O Poder dos Scripts:</strong></p>
+                    <p>Pessoas com scripts predefinidos têm <strong>83% menos</strong> probabilidade de decisões impulsivas!</p>
+                </div>
+
+                <div class="script-card">
+                    <div class="script-number">Script 1</div>
+                    
+                    <div class="input-group">
+                        <label>Situação Desafiadora</label>
+                        <select id="script1Situation" onchange="saveScripts()">
+                            <option value="">Selecione...</option>
+                            <option value="estresse">Período de muito estresse/trabalho</option>
+                            <option value="viagem">Viagem ou mudança de rotina</option>
+                            <option value="social">Evento social com pressão de gastos</option>
+                            <option value="motivacao">Momento de baixa motivação</option>
+                            <option value="outro">Outra situação</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Sinais de Alerta (como percebo que estou nesta situação?)</label>
+                        <textarea id="script1Signs"
+                                  placeholder="Ex: Começar a pular verificações, sentir que 'não tenho tempo', começar a evitar olhar as contas..."
+                                  onchange="saveScripts()"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Modo Emergência (versão simplificada dos rituais)</label>
+                        <textarea id="script1Emergency"
+                                  placeholder="Ex: Em vez de 2 verificações, fazer 1. Em vez de 5 min de revisão, fazer 2 min focando só no essencial..."
+                                  onchange="saveScripts()"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Frase de Lembrete (meu 'Porquê' financeiro)</label>
+                        <input type="text" 
+                               id="script1Reminder"
+                               placeholder="Ex: Lembrar da viagem para Portugal que quero fazer em 18 meses"
+                               onchange="saveScripts()">
+                    </div>
+                </div>
+
+                <div class="script-card">
+                    <div class="script-number">Script 2</div>
+                    
+                    <div class="input-group">
+                        <label>Situação Desafiadora</label>
+                        <select id="script2Situation" onchange="saveScripts()">
+                            <option value="">Selecione...</option>
+                            <option value="estresse">Período de muito estresse/trabalho</option>
+                            <option value="viagem">Viagem ou mudança de rotina</option>
+                            <option value="social">Evento social com pressão de gastos</option>
+                            <option value="motivacao">Momento de baixa motivação</option>
+                            <option value="outro">Outra situação</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Sinais de Alerta</label>
+                        <textarea id="script2Signs"
+                                  placeholder="Como você percebe que está nesta situação?"
+                                  onchange="saveScripts()"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Modo Emergência</label>
+                        <textarea id="script2Emergency"
+                                  placeholder="Qual a versão simplificada dos rituais para este momento?"
+                                  onchange="saveScripts()"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Frase de Lembrete</label>
+                        <input type="text" 
+                               id="script2Reminder"
+                               placeholder="Seu 'Porquê' financeiro"
+                               onchange="saveScripts()">
+                    </div>
+                </div>
+
+                <div class="script-card">
+                    <div class="script-number">Script 3</div>
+                    
+                    <div class="input-group">
+                        <label>Situação Desafiadora</label>
+                        <select id="script3Situation" onchange="saveScripts()">
+                            <option value="">Selecione...</option>
+                            <option value="estresse">Período de muito estresse/trabalho</option>
+                            <option value="viagem">Viagem ou mudança de rotina</option>
+                            <option value="social">Evento social com pressão de gastos</option>
+                            <option value="motivacao">Momento de baixa motivação</option>
+                            <option value="outro">Outra situação</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Sinais de Alerta</label>
+                        <textarea id="script3Signs"
+                                  placeholder="Como você percebe que está nesta situação?"
+                                  onchange="saveScripts()"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Modo Emergência</label>
+                        <textarea id="script3Emergency"
+                                  placeholder="Qual a versão simplificada dos rituais para este momento?"
+                                  onchange="saveScripts()"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Frase de Lembrete</label>
+                        <input type="text" 
+                               id="script3Reminder"
+                               placeholder="Seu 'Porquê' financeiro"
+                               onchange="saveScripts()">
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Rastrear Progresso →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 4: RASTREAMENTO -->
+            <div class="step" id="step4">
+                <h2 class="step-title">📈 Passo 4: Rastreie Seu Progresso</h2>
+                <p class="step-description">Acompanhe a execução dos seus rituais e construa uma sequência vitoriosa!</p>
+
+                <div class="success-box">
+                    <p><strong>💪 Consistência Imperfeita > Perfeição Inconsistente</strong></p>
+                    <p>O objetivo é manter a consistência, não a perfeição. Marque cada ritual executado!</p>
+                </div>
+
+                <div class="streak-counter">
+                    <div class="streak-number" id="streakNumber">0</div>
+                    <div class="streak-label">dias de sequência</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 Rastreador de Rituais (últimos 28 dias)</div>
+                    <p style="color: #718096; margin-bottom: 15px;">Clique em cada dia para marcar como concluído</p>
+                    
+                    <div class="tracker-grid" id="trackerGrid"></div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 20px; height: 20px; border: 2px solid #e2e8f0; border-radius: 4px;"></div>
+                                <span style="color: #718096; font-size: 0.9em;">Não realizado</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 20px; height: 20px; background: #10b981; border-radius: 4px;"></div>
+                                <span style="color: #718096; font-size: 0.9em;">Concluído</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 20px; height: 20px; border: 3px solid #667eea; border-radius: 4px;"></div>
+                                <span style="color: #718096; font-size: 0.9em;">Hoje</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>🎯 Meta Realista:</strong></p>
+                    <p>• Semanas 1-2: Execute pelo menos <strong>70%</strong> dos rituais</p>
+                    <p>• Semanas 3-4: Execute pelo menos <strong>80%</strong> dos rituais</p>
+                    <p>• A partir do mês 2: Execute pelo menos <strong>90%</strong> dos rituais</p>
+                    <p><br>Lembre-se: 90% de consistência transforma vidas. 100% não é necessário!</p>
+                </div>
+
+                <div id="summarySection"></div>
+
+                <div class="download-section">
+                    <h3 style="margin-bottom: 20px; color: #2d3748;">✅ Sistema de Sustentabilidade Completo!</h3>
+                    <p style="color: #718096; margin-bottom: 30px;">Salve seu Plano de Rituais e Scripts</p>
+                    <button class="download-button" onclick="showPrintView()">
+                        📄 Ver Relatório Completo
+                    </button>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="restart()">
+                        🔄 Reiniciar Configuração
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualização para Impressão -->
+    <div class="print-view" id="printView">
+        <div class="print-buttons">
+            <button class="print-btn print-btn-primary" onclick="printReport()">🖨️ Imprimir/Salvar PDF</button>
+            <button class="print-btn print-btn-secondary" onclick="closePrintView()">✕ Fechar</button>
+        </div>
+        <div class="print-content" id="printContent"></div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let schedule = {};
+        let scripts = [];
+        let tracker = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            updateProgressBar();
+            initializeTracker();
+            renderTracker();
+            updateStreak();
+        });
+
+        function saveSchedule() {
+            schedule.quickDay1 = document.getElementById('quickDay1').value;
+            schedule.quickTime1 = document.getElementById('quickTime1').value;
+            schedule.quickDay2 = document.getElementById('quickDay2').value;
+            schedule.quickTime2 = document.getElementById('quickTime2').value;
+            schedule.quickTrigger = document.getElementById('quickTrigger').value;
+            
+            schedule.weeklyDay = document.getElementById('weeklyDay').value;
+            schedule.weeklyTime = document.getElementById('weeklyTime').value;
+            schedule.weeklyContext = document.getElementById('weeklyContext').value;
+            schedule.weeklyReward = document.getElementById('weeklyReward').value;
+            
+            schedule.monthlyDay = document.getElementById('monthlyDay').value;
+            schedule.monthlyTime = document.getElementById('monthlyTime').value;
+            
+            saveData();
+        }
+
+        function saveScripts() {
+            scripts = [
+                {
+                    situation: document.getElementById('script1Situation').value,
+                    signs: document.getElementById('script1Signs').value,
+                    emergency: document.getElementById('script1Emergency').value,
+                    reminder: document.getElementById('script1Reminder').value
+                },
+                {
+                    situation: document.getElementById('script2Situation').value,
+                    signs: document.getElementById('script2Signs').value,
+                    emergency: document.getElementById('script2Emergency').value,
+                    reminder: document.getElementById('script2Reminder').value
+                },
+                {
+                    situation: document.getElementById('script3Situation').value,
+                    signs: document.getElementById('script3Signs').value,
+                    emergency: document.getElementById('script3Emergency').value,
+                    reminder: document.getElementById('script3Reminder').value
+                }
+            ];
+            
+            saveData();
+        }
+
+        function initializeTracker() {
+            if (tracker.length === 0) {
+                const today = new Date();
+                for (let i = 27; i >= 0; i--) {
+                    const date = new Date(today);
+                    date.setDate(date.getDate() - i);
+                    tracker.push({
+                        date: date.toISOString().split('T')[0],
+                        completed: false
+                    });
+                }
+            }
+        }
+
+        function renderTracker() {
+            const grid = document.getElementById('trackerGrid');
+            const today = new Date().toISOString().split('T')[0];
+            
+            grid.innerHTML = tracker.map((day, index) => {
+                const date = new Date(day.date);
+                const dayNum = date.getDate();
+                const isToday = day.date === today;
+                
+                return `
+                    <div class="tracker-day ${day.completed ? 'completed' : ''} ${isToday ? 'today' : ''}"
+                         onclick="toggleDay(${index})">
+                        ${dayNum}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleDay(index) {
+            tracker[index].completed = !tracker[index].completed;
+            renderTracker();
+            updateStreak();
+            saveData();
+        }
+
+        function updateStreak() {
+            let currentStreak = 0;
+            
+            // Calcular sequência atual (começando do mais recente)
+            for (let i = tracker.length - 1; i >= 0; i--) {
+                if (tracker[i].completed) {
+                    currentStreak++;
+                } else {
+                    break;
+                }
+            }
+            
+            document.getElementById('streakNumber').textContent = currentStreak;
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                currentStep++;
+                showStep(currentStep);
+                updateProgressBar();
+                
+                if (currentStep === 4) {
+                    renderSummary();
+                }
+                
+                saveData();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgressBar();
+            }
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentStep - 1) / 3) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) step.classList.add('completed');
+                else if (index + 1 === currentStep) step.classList.add('active');
+            });
+        }
+
+        function validateStep(step) {
+            if (step === 2) {
+                if (!schedule.quickDay1 || !schedule.weeklyDay) {
+                    alert('Configure pelo menos os dias dos rituais principais!');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function renderSummary() {
+            const completedDays = tracker.filter(d => d.completed).length;
+            const percentage = ((completedDays / tracker.length) * 100).toFixed(0);
+            
+            const container = document.getElementById('summarySection');
+            container.innerHTML = `
+                <div class="success-box">
+                    <p><strong>🎉 Seu Progresso até Agora:</strong></p>
+                    <p>✅ <strong>${completedDays}</strong> dias de rituais concluídos (${percentage}% dos últimos 28 dias)</p>
+                    <p>📅 Rituais configurados para <strong>${schedule.quickDay1 || 'N/A'}</strong> e <strong>${schedule.quickDay2 || 'N/A'}</strong></p>
+                    <p>🛡️ <strong>${scripts.filter(s => s.situation).length}</strong> scripts de proteção criados</p>
+                    <p><br><strong>Continue assim!</strong> Você está construindo um sistema financeiro que dura para sempre! 💪</p>
+                </div>
+            `;
+        }
+
+        function showPrintView() {
+            const completedDays = tracker.filter(d => d.completed).length;
+            const percentage = ((completedDays / tracker.length) * 100).toFixed(0);
+            
+            const situationNames = {
+                estresse: 'Período de estresse/trabalho intenso',
+                viagem: 'Viagem ou mudança de rotina',
+                social: 'Evento social com pressão de gastos',
+                motivacao: 'Momento de baixa motivação',
+                outro: 'Outra situação'
+            };
+            
+            const html = `
+                <div class="print-header">
+                    <h1 style="font-size: 2.5em;">⚡ Sistema de Sustentabilidade</h1>
+                    <p style="font-size: 1.2em;">Revolução Financeira em 30 Dias</p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">${new Date().toLocaleDateString('pt-BR')}</p>
+                </div>
+
+                <div style="background: #e0e7ff; padding: 25px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 30px;">
+                    <h2 style="color: #667eea; margin-bottom: 15px;">📅 Meus Rituais Agendados</h2>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <p style="color: #667eea; font-weight: 700;">⚡ Verificação Rápida (2min - 2x/semana)</p>
+                        <p style="color: #4a5568; margin-top: 5px;">
+                            ${schedule.quickDay1 || 'N/A'} às ${schedule.quickTime1 || 'N/A'} | 
+                            ${schedule.quickDay2 || 'N/A'} às ${schedule.quickTime2 || 'N/A'}
+                        </p>
+                        ${schedule.quickTrigger ? `<p style="color: #4a5568; margin-top: 5px;"><em>Gatilho: ${schedule.quickTrigger}</em></p>` : ''}
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <p style="color: #667eea; font-weight: 700;">📊 Revisão Semanal (5min - 1x/semana)</p>
+                        <p style="color: #4a5568; margin-top: 5px;">
+                            ${schedule.weeklyDay || 'N/A'} às ${schedule.weeklyTime || 'N/A'}
+                        </p>
+                        ${schedule.weeklyContext ? `<p style="color: #4a5568; margin-top: 5px;"><em>Local: ${schedule.weeklyContext}</em></p>` : ''}
+                        ${schedule.weeklyReward ? `<p style="color: #4a5568; margin-top: 5px;"><em>Recompensa: ${schedule.weeklyReward}</em></p>` : ''}
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px;">
+                        <p style="color: #667eea; font-weight: 700;">🎯 Alinhamento Mensal (15min - 1x/mês)</p>
+                        <p style="color: #4a5568; margin-top: 5px;">
+                            Dia ${schedule.monthlyDay || 'N/A'} às ${schedule.monthlyTime || 'N/A'}
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: #fee2e2; padding: 25px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 30px;">
+                    <h2 style="color: #ef4444; margin-bottom: 15px;">🛡️ Meus Scripts de Proteção</h2>
+                    
+                    ${scripts.map((script, i) => {
+                        if (!script.situation) return '';
+                        return `
+                            <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                                <p style="color: #ef4444; font-weight: 700; margin-bottom: 10px;">Script ${i + 1}: ${situationNames[script.situation] || script.situation}</p>
+                                
+                                ${script.signs ? `
+                                    <div style="margin-bottom: 10px;">
+                                        <p style="color: #4a5568; font-weight: 600;">Sinais de Alerta:</p>
+                                        <p style="color: #4a5568; line-height: 1.6;">${script.signs}</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${script.emergency ? `
+                                    <div style="margin-bottom: 10px;">
+                                        <p style="color: #4a5568; font-weight: 600;">Modo Emergência:</p>
+                                        <p style="color: #4a5568; line-height: 1.6;">${script.emergency}</p>
+                                    </div>
+                                ` : ''}
+                                
+                                ${script.reminder ? `
+                                    <div style="background: #fef3c7; padding: 10px; border-radius: 6px;">
+                                        <p style="color: #92400e; font-weight: 600;">💡 Lembrete: ${script.reminder}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <div style="background: #d1fae5; padding: 25px; border-radius: 12px; border-left: 4px solid #10b981; margin-bottom: 30px;">
+                    <h2 style="color: #065f46; margin-bottom: 15px;">📈 Meu Progresso</h2>
+                    <div style="text-align: center; padding: 20px; background: white; border-radius: 8px;">
+                        <p style="font-size: 3em; font-weight: 700; color: #10b981; margin-bottom: 10px;">${percentage}%</p>
+                        <p style="color: #065f46; font-weight: 600;">Taxa de Conclusão (últimos 28 dias)</p>
+                        <p style="color: #065f46; margin-top: 10px;">${completedDays} de 28 dias com rituais concluídos</p>
+                    </div>
+                </div>
+
+                <div style="background: #fef3c7; padding: 25px; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                    <h2 style="color: #92400e; margin-bottom: 15px;">💡 Lembre-se</h2>
+                    <p style="color: #92400e; line-height: 1.8;">
+                        <strong>Consistência imperfeita supera perfeição inconsistente.</strong> O objetivo não é executar 100% dos rituais perfeitamente, 
+                        mas manter a consistência ao longo do tempo. Mesmo 70-80% de consistência transformará completamente suas finanças!
+                    </p>
+                    <p style="color: #92400e; line-height: 1.8; margin-top: 15px;">
+                        Você agora faz parte dos <strong>8% que realmente transformam suas finanças para sempre!</strong>
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #e9ecef; color: #718096;">
+                    <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>⚡ Você construiu um sistema que trabalha enquanto você dorme!</strong></p>
+                    <p style="font-size: 0.9em; margin-top: 20px; color: #667eea;"><strong>Revolução Financeira em 30 Dias</strong></p>
+                    <p style="font-size: 0.85em; color: #667eea;">Fernando Martins</p>
+                    <p style="font-size: 0.85em; color: #667eea;">Consultor Financeiro</p>
+                </div>
+            `;
+
+            document.getElementById('printContent').innerHTML = html;
+            document.getElementById('printView').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrintView() {
+            document.getElementById('printView').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function printReport() {
+            window.print();
+        }
+
+        function saveData() {
+            localStorage.setItem('sustainability', JSON.stringify({
+                schedule,
+                scripts,
+                tracker
+            }));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('sustainability');
+            if (saved) {
+                const data = JSON.parse(saved);
+                schedule = data.schedule || {};
+                scripts = data.scripts || [];
+                tracker = data.tracker || [];
+                
+                // Preencher campos de agendamento
+                if (schedule.quickDay1) document.getElementById('quickDay1').value = schedule.quickDay1;
+                if (schedule.quickTime1) document.getElementById('quickTime1').value = schedule.quickTime1;
+                if (schedule.quickDay2) document.getElementById('quickDay2').value = schedule.quickDay2;
+                if (schedule.quickTime2) document.getElementById('quickTime2').value = schedule.quickTime2;
+                if (schedule.quickTrigger) document.getElementById('quickTrigger').value = schedule.quickTrigger;
+                
+                if (schedule.weeklyDay) document.getElementById('weeklyDay').value = schedule.weeklyDay;
+                if (schedule.weeklyTime) document.getElementById('weeklyTime').value = schedule.weeklyTime;
+                if (schedule.weeklyContext) document.getElementById('weeklyContext').value = schedule.weeklyContext;
+                if (schedule.weeklyReward) document.getElementById('weeklyReward').value = schedule.weeklyReward;
+                
+                if (schedule.monthlyDay) document.getElementById('monthlyDay').value = schedule.monthlyDay;
+                if (schedule.monthlyTime) document.getElementById('monthlyTime').value = schedule.monthlyTime;
+                
+                // Preencher scripts
+                if (scripts.length >= 1) {
+                    if (scripts[0].situation) document.getElementById('script1Situation').value = scripts[0].situation;
+                    if (scripts[0].signs) document.getElementById('script1Signs').value = scripts[0].signs;
+                    if (scripts[0].emergency) document.getElementById('script1Emergency').value = scripts[0].emergency;
+                    if (scripts[0].reminder) document.getElementById('script1Reminder').value = scripts[0].reminder;
+                }
+                
+                if (scripts.length >= 2) {
+                    if (scripts[1].situation) document.getElementById('script2Situation').value = scripts[1].situation;
+                    if (scripts[1].signs) document.getElementById('script2Signs').value = scripts[1].signs;
+                    if (scripts[1].emergency) document.getElementById('script2Emergency').value = scripts[1].emergency;
+                    if (scripts[1].reminder) document.getElementById('script2Reminder').value = scripts[1].reminder;
+                }
+                
+                if (scripts.length >= 3) {
+                    if (scripts[2].situation) document.getElementById('script3Situation').value = scripts[2].situation;
+                    if (scripts[2].signs) document.getElementById('script3Signs').value = scripts[2].signs;
+                    if (scripts[2].emergency) document.getElementById('script3Emergency').value = scripts[2].emergency;
+                    if (scripts[2].reminder) document.getElementById('script3Reminder').value = scripts[2].reminder;
+                }
+            }
+        }
+
+        function restart() {
+            if (confirm('Reiniciar configuração? Os dados atuais serão perdidos.')) {
+                localStorage.removeItem('sustainability');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
