@@ -12,6 +12,7 @@ Ferramentas interativas do curso de educação financeira.
 - [✂️ Aula 5 - Micro-Cortes Indolores](https://seu-usuario.github.io/seu-repositorio/aula5/)
 - [💰 Aula 6 - Negociações Financeiras de Alto Impacto](https://seu-usuario.github.io/seu-repositorio/aula6/)
 - [🧠 Aula 8 - Eliminando o Controle Obsessivo](https://seu-usuario.github.io/seu-repositorio/aula8/)
+- [💰 Aula 9 - Segunda Fonte de Renda](https://seu-usuario.github.io/seu-repositorio/aula9/)
 
 ## 👨‍💼 Sobre
 
