@@ -1204,19 +1204,60 @@
         }
 
         function sendToGoogleForms() {
-            // SUBSTITUA ESTE URL PELO SEU GOOGLE FORMS
-            const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnP7t3O2bkyn2Ag_25X-lsq3B7aVOiq7w1Wa41qyiO0IBOAg/viewform?usp=header';
+            // URL do seu Google Forms
+            const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScnP7t3O2bkyn2Ag_25X-lsq3B7aVOiq7w1Wa41qyiO0IBOAg/viewform';
             
-            // Pré-preenche os dados (você precisa configurar os IDs dos campos no Google Forms)
+            // Coleta dados atualizados
+            const indice = calculateIndiceTransformacao();
+            const totalMensal = data.economiaMicroCortes + data.economiaReneg + data.segundaFonte;
+            
+            // Mapeamento dos campos com IDs reais do formulário
             const params = new URLSearchParams({
-                // Estruture conforme os IDs dos campos do seu formulário
-                // Exemplo: 'entry.123456': data.sistemaContas
+                // Dados Básicos (opcional, não preenche para não forçar)
+                // 'entry.1873060532': '',  // Nome
+                // 'entry.1516125200': '',  // Email
+                'entry.977775182': new Date().toISOString().split('T')[0],  // Data conclusão
+                
+                // Transformação Sistêmica
+                'entry.1446461472': data.sistemaContas.toString(),          // Sistema 3 Contas (0-100)
+                'entry.457854040': data.automacoes.toString(),              // Automações
+                'entry.1771486734': data.clarezaProp.toString(),            // Clareza Propósito (1-10)
+                
+                // Resultados Concretos
+                'entry.2146966085': data.economiaMicroCortes.toString(),    // Micro-Cortes (R$)
+                'entry.939369954': data.economiaReneg.toString(),           // Renegociações (R$)
+                'entry.1785537187': data.segundaFonte.toString(),           // Segunda Fonte (R$)
+                'entry.191943132': data.mesesReserva.toString(),            // Reserva (meses)
+                
+                // Transformação Comportamental
+                'entry.1058352888': data.estresseAntes.toString(),          // Estresse ANTES (1-10)
+                'entry.1953344654': data.estresseDepois.toString(),         // Estresse DEPOIS (1-10)
+                'entry.1952515513': data.comprasAntes.toString(),           // Compras ANTES
+                'entry.2113379248': data.comprasDepois.toString(),          // Compras DEPOIS
+                'entry.1427665643': data.tranquilidade.toString(),          // Tranquilidade (1-10)
+                
+                // Plano 60 Dias
+                'entry.1161814114': data.prioridade1,                       // Prioridade 1
+                'entry.2008570716': data.prioridade2,                       // Prioridade 2
+                'entry.74812745': data.prioridade3,                         // Prioridade 3
+                'entry.1605876578': data.dataMarco,                         // Data Marco
+                
+                // Depoimento
+                'entry.42108975': data.maiorConquista,                      // Maior Conquista
+                'entry.1260180613': data.maiorAprendizado,                  // Maior Aprendizado
+                'entry.910833426': data.conselho                            // Conselho
+                
+                // Autorização e NPS são preenchidos manualmente pelo aluno
             });
             
-            // Abre o formulário em nova aba
-            window.open(`${FORM_URL}?${params.toString()}`, '_blank');
+            // Abre o formulário pré-preenchido em nova aba
+            const fullUrl = `${FORM_URL}?${params.toString()}`;
+            window.open(fullUrl, '_blank');
             
-            alert('📊 Formulário aberto em nova aba! Confirme e envie seus resultados.');
+            // Mensagem de confirmação
+            setTimeout(() => {
+                alert('📊 Formulário aberto em nova aba!\n\n✅ Seus dados já foram preenchidos automaticamente.\n\nRevise as informações e clique em "Enviar" no formulário.');
+            }, 500);
         }
 
         function saveData() {
