@@ -15,6 +15,7 @@ Ferramentas interativas do curso de educação financeira.
 - [💰 Aula 9 - Segunda Fonte de Renda](https://seu-usuario.github.io/seu-repositorio/aula9/)
 - [🛡️ Aula 10 - Blindagem Contra Crises](https://seu-usuario.github.io/seu-repositorio/aula10/)
 - [⚡ Aula 11 - Sustentabilidade do Sistema](https://seu-usuario.github.io/seu-repositorio/aula11/)
+- [🎉 Aula 12 - Avaliação e Celebração](https://seu-usuario.github.io/seu-repositorio/aula11/)
 
 ## 👨‍💼 Sobre
 
