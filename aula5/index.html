@@ -551,54 +551,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        @media print {
-            .print-buttons {
-                display: none !important;
-            }
-            
-            .print-content {
-                box-shadow: none;
-                padding: 0;
-                max-width: 100%;
-            }
-            
-            .print-view {
-                padding: 0;
-            }
-            
-            /* Evita quebra no meio dos elementos */
-            .print-header,
-            div[style*="background: linear-gradient"],
-            div[style*="padding: 25px"],
-            div[style*="padding: 30px"] {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
-            
-            /* Força quebra entre seções principais */
-            .print-header {
-                page-break-after: avoid !important;
-            }
-            
-            /* Simplifica gradientes para impressão */
-            div[style*="linear-gradient"] {
-                background: #f8f9fa !important;
-                border: 2px solid #667eea !important;
-            }
-            
-            /* Ajusta margens */
-            @page {
-                margin: 1.5cm;
-                size: A4;
-            }
-            
-            /* Remove sombras */
-            * {
-                box-shadow: none !important;
-                text-shadow: none !important;
-            }
-        }
-
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
@@ -769,7 +721,7 @@
                 </div>
 
                 <button class="nav-button primary" style="width: 100%; margin-bottom: 20px;" onclick="showPrintView()">
-                    📄 Ver Relatório Completo
+                    🖼️ Ver e Baixar Relatório
                 </button>
 
                 <div class="navigation">
@@ -787,8 +739,9 @@
     <!-- Visualização para Impressão -->
     <div class="print-view" id="printView">
         <div class="print-buttons">
-            <button class="print-btn print-btn-primary" onclick="printReport()">🖨️ Salvar como PDF</button>
-            <button class="print-btn print-btn-primary" onclick="downloadImage()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">🖼️ Baixar Imagem</button>
+            <button class="print-btn print-btn-primary" onclick="downloadImage()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1.1em;">
+                🖼️ Baixar Relatório
+            </button>
             <button class="print-btn print-btn-secondary" onclick="closePrintView()">✕ Fechar</button>
         </div>
         <div class="print-content" id="printContent"></div>
@@ -1254,10 +1207,6 @@
         function closePrintView() {
             document.getElementById('printView').classList.remove('active');
             document.body.style.overflow = 'auto';
-        }
-
-        function printReport() {
-            window.print();
         }
 
         function downloadImage() {
