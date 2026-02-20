@@ -559,10 +559,43 @@
             .print-content {
                 box-shadow: none;
                 padding: 0;
+                max-width: 100%;
             }
             
             .print-view {
                 padding: 0;
+            }
+            
+            /* Evita quebra no meio dos elementos */
+            .print-header,
+            div[style*="background: linear-gradient"],
+            div[style*="padding: 25px"],
+            div[style*="padding: 30px"] {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Força quebra entre seções principais */
+            .print-header {
+                page-break-after: avoid !important;
+            }
+            
+            /* Simplifica gradientes para impressão */
+            div[style*="linear-gradient"] {
+                background: #f8f9fa !important;
+                border: 2px solid #667eea !important;
+            }
+            
+            /* Ajusta margens */
+            @page {
+                margin: 1.5cm;
+                size: A4;
+            }
+            
+            /* Remove sombras */
+            * {
+                box-shadow: none !important;
+                text-shadow: none !important;
             }
         }
 
@@ -1163,12 +1196,12 @@
             const fiveYear = yearly * 5;
 
             const html = `
-                <div class="print-header">
+                <div class="print-header" style="page-break-after: avoid;">
                     <h1 style="font-size: 2.5em;">✂️ Plano de Micro-Cortes Indolores</h1>
                     <p style="font-size: 1.2em;">Revolução Financeira em 30 Dias</p>
                     <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">${new Date().toLocaleDateString('pt-BR')}</p>
                 </div>
-                <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 30px; border-radius: 12px; border: 3px solid #f59e0b; text-align: center; margin-bottom: 30px;">
+                <div style="background: #fef3c7; padding: 30px; border-radius: 12px; border: 3px solid #f59e0b; text-align: center; margin-bottom: 30px; page-break-inside: avoid;">
                     <h2 style="color: #92400e; margin-bottom: 20px;">💰 Resumo da Economia</h2>
                     <p style="font-size: 3.5em; font-weight: 700; color: #dc2626;">${formatCurrency(totalSaved)}</p>
                     <p style="color: #92400e; margin-top: 10px; font-size: 1.2em;">
@@ -1185,7 +1218,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin-bottom: 30px; page-break-inside: avoid;">
                     <h2 style="color: #667eea; margin-bottom: 20px;">🎯 Seus Micro-Cortes</h2>
                     ${selectedCategories.map((cat, i) => {
                         const data = categoryData[cat];
@@ -1195,7 +1228,7 @@
                             ? cut.strategies.map(s => `• ${s}`).join('<br>') 
                             : 'Nenhuma estratégia selecionada';
                         return `
-                            <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #10b981;">
+                            <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #10b981; page-break-inside: avoid;">
                                 <h3 style="color: #2d3748; margin-bottom: 15px;">#${i+1} - ${data.icon} ${data.name}</h3>
                                 <p style="color: #4a5568; margin: 8px 0;"><strong>Gasto:</strong> ${formatCurrency(cut.value)}/mês</p>
                                 <p style="color: #4a5568; margin: 8px 0;"><strong>Corte:</strong> ${cut.percentage}%</p>
@@ -1208,7 +1241,7 @@
                         `;
                     }).join('')}
                 </div>
-                <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #e9ecef; color: #718096;">
+                <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #e9ecef; color: #718096; page-break-inside: avoid;">
                     <p style="font-size: 0.9em; color: #667eea;"><strong>Revolução Financeira em 30 Dias</strong></p>
                     <p style="font-size: 0.85em; color: #667eea;">Fernando Martins - Consultor Financeiro</p>
                 </div>
