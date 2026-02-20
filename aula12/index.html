@@ -1211,6 +1211,9 @@
             const indice = calculateIndiceTransformacao();
             const totalMensal = data.economiaMicroCortes + data.economiaReneg + data.segundaFonte;
             
+            // Converte Sistema de 3 Contas de 0-100 para 1-10 (se necessário)
+            const sistemaContasEscala = Math.round((data.sistemaContas / 100) * 9 + 1);
+            
             // Mapeamento dos campos com IDs reais do formulário
             const params = new URLSearchParams({
                 // Dados Básicos (opcional, não preenche para não forçar)
@@ -1219,7 +1222,7 @@
                 'entry.977775182': new Date().toISOString().split('T')[0],  // Data conclusão
                 
                 // Transformação Sistêmica
-                'entry.1446461472': data.sistemaContas.toString(),          // Sistema 3 Contas (0-100)
+                'entry.1446461472': sistemaContasEscala.toString(),          // Sistema 3 Contas (1-10 convertido de 0-100)
                 'entry.457854040': data.automacoes.toString(),              // Automações
                 'entry.1771486734': data.clarezaProp.toString(),            // Clareza Propósito (1-10)
                 
