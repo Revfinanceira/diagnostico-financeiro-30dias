@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 10: Blindagem Contra Crises - Revolução Financeira em 30 Dias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .progress-container {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e9ecef;
+            z-index: 1;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #e9ecef;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #adb5bd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-circle {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-step.completed .progress-circle {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+
+        .progress-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .progress-step.active .progress-label {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .step-description {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: #4c51bf;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box p {
+            color: #065f46;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box p {
+            color: #92400e;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .nav-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .nav-button.secondary:hover {
+            background: #f0f4ff;
+        }
+
+        .expense-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .expense-item label {
+            flex: 1;
+            margin: 0;
+        }
+
+        .expense-item input {
+            flex: 1;
+        }
+
+        .layer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .layer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .layer-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .layer-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .layer-description {
+            color: #718096;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .layer-details {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #4a5568;
+        }
+
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .risk-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .risk-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .risk-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .risk-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .risk-name {
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .risk-level.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .risk-level.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .risk-level.low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 15px;
+        }
+
+        .summary-value {
+            font-size: 3em;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+
+        .summary-subtitle {
+            color: #059669;
+            font-size: 1.1em;
+        }
+
+        .print-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .print-view.active {
+            display: block !important;
+        }
+
+        .print-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .print-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .print-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10000;
+        }
+        
+        .print-view:not(.active) .print-buttons {
+            display: none;
+        }
+        
+        .print-view.active .print-buttons {
+            display: flex !important;
+        }
+
+        .print-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .print-btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            .print-buttons {
+                display: none !important;
+            }
+            
+            .print-content {
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            .print-view {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .risk-matrix {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Aula 10: Blindagem Contra Crises</h1>
+            <p>Proteja seus sonhos contra imprevistos financeiros</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <div class="progress-label">Despesas</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <div class="progress-label">Reserva</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-circle">3</div>
+                    <div class="progress-label">Riscos</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="progress-circle">4</div>
+                    <div class="progress-label">Plano</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- PASSO 1: DESPESAS ESSENCIAIS -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">💰 Passo 1: Calcule Suas Despesas Essenciais</h2>
+                <p class="step-description">Identifique quanto você realmente precisa por mês em situação de emergência.</p>
+
+                <div class="info-box">
+                    <p><strong>🛡️ Por que isso é crucial:</strong></p>
+                    <p>• <strong>73%</strong> das famílias enfrentam imprevistos a cada 24 meses</p>
+                    <p>• Impacto médio: <strong>2,6x a renda mensal</strong></p>
+                    <p>• <strong>82%</strong> abandonam objetivos por falta de proteção</p>
+                    <p>• Famílias com reserva estratificada têm <strong>87% menos chances</strong> de comprometer seus sonhos</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Despesas Essenciais Mensais</div>
+                    <p style="color: #718096; margin-bottom: 15px; font-size: 0.9em;">
+                        💡 Inclua APENAS gastos essenciais para sobrevivência (sem luxos ou supérfluos)
+                    </p>
+
+                    <div class="expense-item">
+                        <label>🏠 Moradia (aluguel, financiamento, condomínio, IPTU):</label>
+                        <input type="number" id="moradia" placeholder="0" min="0" step="100" onchange="calculateEssential()">
+                    </div>
+
+                    <div class="expense-item">
+                        <label>🍽️ Alimentação básica (supermercado essencial):</label>
+                        <input type="number" id="alimentacao" placeholder="0" min="0" step="50" onchange="calculateEssential()">
+                    </div>
+
+                    <div class="expense-item">
+                        <label>🚗 Transporte essencial (combustível, transporte público):</label>
+                        <input type="number" id="transporte" placeholder="0" min="0" step="50" onchange="calculateEssential()">
+                    </div>
+
+                    <div class="expense-item">
+                        <label>🏥 Saúde (plano, medicamentos contínuos):</label>
+                        <input type="number" id="saude" placeholder="0" min="0" step="50" onchange="calculateEssential()">
+                    </div>
+
+                    <div class="expense-item">
+                        <label>🎓 Educação (mensalidades, material básico):</label>
+                        <input type="number" id="educacao" placeholder="0" min="0" step="50" onchange="calculateEssential()">
+                    </div>
+
+                    <div class="expense-item">
+                        <label>💡 Serviços básicos (água, luz, gás, internet):</label>
+                        <input type="number" id="servicos" placeholder="0" min="0" step="50" onchange="calculateEssential()">
+                    </div>
+
+                    <div class="expense-item">
+                        <label>➕ Outros essenciais:</label>
+                        <input type="number" id="outros" placeholder="0" min="0" step="50" onchange="calculateEssential()">
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center;">
+                        <p style="color: #92400e; font-weight: 600; margin-bottom: 10px;">TOTAL DE DESPESAS ESSENCIAIS:</p>
+                        <p style="font-size: 2.5em; font-weight: 700; color: #ea580c;" id="totalEssencial">R$ 0,00</p>
+                        <p style="color: #92400e; font-size: 0.9em; margin-top: 5px;">Base para calcular sua reserva de emergência</p>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Calcular Reserva →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 2: RESERVA ESTRATIFICADA -->
+            <div class="step" id="step2">
+                <h2 class="step-title">📊 Passo 2: Sua Reserva Estratificada</h2>
+                <p class="step-description">Sistema em 3 camadas para máxima proteção e rentabilidade.</p>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ Por que estratificar?</strong></p>
+                    <p>Reserva única = ERRO comum! Você perde rentabilidade OU liquidez.</p>
+                    <p><strong>Solução:</strong> 3 camadas com liquidez e rentabilidade otimizadas!</p>
+                </div>
+
+                <div id="reservaLayers"></div>
+
+                <div class="summary-card">
+                    <div class="summary-title">💰 Total da Reserva Completa</div>
+                    <div class="summary-value" id="totalReserva">R$ 0,00</div>
+                    <div class="summary-subtitle">Proteção total para <span id="mesesProtecao">0</span> meses</div>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>💡 Observação Importante:</strong></p>
+                    <p>Esse aqui é o <strong>mundo ideal</strong>! Se você conseguir chegar nesse valor total, show de bola, perfeito!</p>
+                    <p>MAS eu sei que você não tem só a reserva de emergência para conquistar... Existem outros objetivos importantes, como aquisições, investimentos, realização de sonhos.</p>
+                    <p><strong>Dá para pensar em um meio do caminho:</strong> priorize completar pelo menos a <strong>RAI (Camada 1)</strong> e a <strong>RCP (Camada 2)</strong> primeiro. A RMP você vai construindo aos poucos, conforme sobrar mais recursos.</p>
+                    <p>✅ <strong>Meta mínima realista:</strong> RAI + RCP = 5 meses de proteção já resolve 85% das emergências!</p>
+                </div>
+
+                <div class="success-box">
+                    <p><strong>✅ Estratégia de Construção:</strong></p>
+                    <p><strong>Fase 1 (1-3 meses):</strong> Focar na RAI (Acesso Imediato) - PRIORIDADE MÁXIMA!</p>
+                    <p><strong>Fase 2 (4-8 meses):</strong> Construir RCP (Curto Prazo) - Já te protege bem!</p>
+                    <p><strong>Fase 3 (9-18 meses):</strong> Completar RMP (Médio Prazo) - Conforme sobrar</p>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Mapear Riscos →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 3: MATRIZ DE VULNERABILIDADES -->
+            <div class="step" id="step3">
+                <h2 class="step-title">⚠️ Passo 3: Matriz de Vulnerabilidades</h2>
+                <p class="step-description">Identifique seus principais riscos financeiros.</p>
+
+                <div class="info-box">
+                    <p><strong>💡 Os 5 Imprevistos Mais Comuns:</strong></p>
+                    <p>1. <strong>Saúde</strong> não coberta (64% das famílias)</p>
+                    <p>2. <strong>Desemprego</strong> ou redução de renda (57%)</p>
+                    <p>3. Problemas com <strong>veículos/imóveis</strong> (48%)</p>
+                    <p>4. <strong>Emergências familiares</strong> (42%)</p>
+                    <p>5. Suporte a <strong>familiares</strong> (38%)</p>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Selecione Suas 3 Maiores Vulnerabilidades</div>
+                    <p style="color: #718096; margin-bottom: 15px; font-size: 0.9em;">
+                        Clique nos riscos que mais preocupam você
+                    </p>
+
+                    <div class="risk-matrix" id="riskMatrix"></div>
+                </div>
+
+                <div id="selectedRisksContainer" style="display: none;">
+                    <div class="success-box">
+                        <p><strong>✅ Vulnerabilidades Identificadas:</strong></p>
+                        <div id="selectedRisksList"></div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="nextStep()">
+                        Próximo: Plano de Ação →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASSO 4: PLANO DE AÇÃO -->
+            <div class="step" id="step4">
+                <h2 class="step-title">🎯 Passo 4: Seu Plano de Blindagem</h2>
+                <p class="step-description">Defina ações concretas para proteger suas finanças.</p>
+
+                <div class="section">
+                    <div class="section-title">🚀 Primeira Ação: Iniciar RAI HOJE</div>
+                    
+                    <div class="input-group">
+                        <label>Onde você vai guardar sua Reserva de Acesso Imediato?</label>
+                        <select id="instituicaoRAI">
+                            <option value="">Selecione...</option>
+                            <option value="nubank">Nubank (Caixinha)</option>
+                            <option value="inter">Inter (Conta Digital)</option>
+                            <option value="picpay">PicPay</option>
+                            <option value="c6">C6 Bank</option>
+                            <option value="original">Banco Original</option>
+                            <option value="outro">Outro banco digital</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Quanto você vai depositar HOJE para começar?</label>
+                        <input type="number" id="depositoInicial" placeholder="100" min="0" step="50">
+                        <small style="color: #718096; font-size: 0.85em; margin-top: 5px; display: block;">
+                            💡 Mesmo R$ 50 já é um começo! O importante é INICIAR.
+                        </small>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Quanto você vai contribuir MENSALMENTE?</label>
+                        <input type="number" id="contribuicaoMensal" placeholder="300" min="0" step="50">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">🛡️ Proteção Contra Seus Riscos</div>
+                    <div id="riskProtectionPlan"></div>
+                </div>
+
+                <div class="success-box">
+                    <p><strong>🎯 Próximos Passos (Próximos 7 Dias):</strong></p>
+                    <p>✅ Fazer o depósito inicial na RAI HOJE</p>
+                    <p>✅ Configurar transferência automática mensal</p>
+                    <p>✅ Pesquisar opções de seguros para seu maior risco</p>
+                    <p>✅ Compartilhar seu progresso no grupo</p>
+                </div>
+
+                <button class="nav-button primary" style="width: 100%; margin-bottom: 20px;" onclick="showPrintView()">
+                    🖼️ Ver e Baixar Relatório
+                </button>
+
+                <div class="navigation">
+                    <button class="nav-button secondary" onclick="prevStep()">
+                        ← Voltar
+                    </button>
+                    <button class="nav-button primary" onclick="restart()">
+                        🔄 Novo Plano
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualização para Impressão -->
+    <div class="print-view" id="printView">
+        <div class="print-buttons">
+            <button class="print-btn print-btn-primary" onclick="downloadImage()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1.1em;">
+                🖼️ Baixar Relatório
+            </button>
+            <button class="print-btn print-btn-secondary" onclick="closePrintView()">✕ Fechar</button>
+        </div>
+        <div class="print-content" id="printContent"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        let currentStep = 1;
+        let data = {
+            expenses: {},
+            totalEssencial: 0,
+            reserva: {},
+            selectedRisks: [],
+            actionPlan: {}
+        };
+
+        const risks = [
+            { id: 'saude', icon: '🏥', name: 'Problemas de Saúde', level: 'high', probability: 'Alta' },
+            { id: 'desemprego', icon: '💼', name: 'Desemprego/Perda Renda', level: 'high', probability: 'Média' },
+            { id: 'veiculo', icon: '🚗', name: 'Problemas com Veículo', level: 'medium', probability: 'Média' },
+            { id: 'imovel', icon: '🏠', name: 'Problemas com Imóvel', level: 'medium', probability: 'Baixa' },
+            { id: 'familia', icon: '👨‍👩‍👧', name: 'Emergências Familiares', level: 'medium', probability: 'Média' },
+            { id: 'juridico', icon: '⚖️', name: 'Questões Jurídicas', level: 'low', probability: 'Baixa' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            renderRiskMatrix();
+            updateProgressBar();
+        });
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        function calculateEssential() {
+            const moradia = parseFloat(document.getElementById('moradia').value) || 0;
+            const alimentacao = parseFloat(document.getElementById('alimentacao').value) || 0;
+            const transporte = parseFloat(document.getElementById('transporte').value) || 0;
+            const saude = parseFloat(document.getElementById('saude').value) || 0;
+            const educacao = parseFloat(document.getElementById('educacao').value) || 0;
+            const servicos = parseFloat(document.getElementById('servicos').value) || 0;
+            const outros = parseFloat(document.getElementById('outros').value) || 0;
+
+            data.expenses = { moradia, alimentacao, transporte, saude, educacao, servicos, outros };
+            data.totalEssencial = moradia + alimentacao + transporte + saude + educacao + servicos + outros;
+
+            document.getElementById('totalEssencial').textContent = formatCurrency(data.totalEssencial);
+
+            saveData();
+        }
+
+        function calculateReserva() {
+            const rai = data.totalEssencial * 1.5;  // 1-2 meses (média 1.5)
+            const rcp = data.totalEssencial * 3.5;  // 3-4 meses (média 3.5)
+            const rmp = data.totalEssencial * 9;    // 6-12 meses (média 9)
+
+            data.reserva = {
+                rai: rai,
+                rcp: rcp,
+                rmp: rmp,
+                total: rai + rcp + rmp
+            };
+
+            const container = document.getElementById('reservaLayers');
+            container.innerHTML = `
+                <div class="layer-card" style="border-left-color: #ef4444;">
+                    <div class="layer-header">
+                        <div class="layer-title">📱 Camada 1: RAI (Acesso Imediato)</div>
+                        <div class="layer-value">${formatCurrency(rai)}</div>
+                    </div>
+                    <div class="layer-description">
+                        <strong>Objetivo:</strong> Emergências urgentes (24-48h)<br>
+                        <strong>Prazo:</strong> 1,5 meses de despesas essenciais
+                    </div>
+                    <div class="layer-details">
+                        <strong>Sugestão:</strong> Conta corrente rendendo, Nubank, PicPay, Inter<br>
+                        <strong>Liquidez:</strong> Instantânea (saque imediato)
+                    </div>
+                </div>
+
+                <div class="layer-card" style="border-left-color: #f59e0b;">
+                    <div class="layer-header">
+                        <div class="layer-title">💰 Camada 2: RCP (Curto Prazo)</div>
+                        <div class="layer-value">${formatCurrency(rcp)}</div>
+                    </div>
+                    <div class="layer-description">
+                        <strong>Objetivo:</strong> Desemprego, períodos mais longos<br>
+                        <strong>Prazo:</strong> 3,5 meses de despesas essenciais
+                    </div>
+                    <div class="layer-details">
+                        <strong>Sugestão:</strong> CDBs liquidez diária, Fundos DI<br>
+                        <strong>Liquidez:</strong> 1-3 dias úteis
+                    </div>
+                </div>
+
+                <div class="layer-card" style="border-left-color: #10b981;">
+                    <div class="layer-header">
+                        <div class="layer-title">🏦 Camada 3: RMP (Médio Prazo)</div>
+                        <div class="layer-value">${formatCurrency(rmp)}</div>
+                    </div>
+                    <div class="layer-description">
+                        <strong>Objetivo:</strong> Emergências extensas ou múltiplas<br>
+                        <strong>Prazo:</strong> 9 meses de despesas essenciais
+                    </div>
+                    <div class="layer-details">
+                        <strong>Sugestão:</strong> Tesouro Selic, CDBs, LCI/LCA<br>
+                        <strong>Liquidez:</strong> 3-15 dias (maior rentabilidade)
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('totalReserva').textContent = formatCurrency(data.reserva.total);
+            document.getElementById('mesesProtecao').textContent = '14';
+
+            saveData();
+        }
+
+        function renderRiskMatrix() {
+            const container = document.getElementById('riskMatrix');
+            container.innerHTML = risks.map(risk => `
+                <div class="risk-card" data-risk="${risk.id}" onclick="toggleRisk('${risk.id}')">
+                    <div class="risk-icon">${risk.icon}</div>
+                    <div class="risk-name">${risk.name}</div>
+                    <div class="risk-level ${risk.level}">
+                        ${risk.level === 'high' ? 'Alta Prioridade' : 
+                          risk.level === 'medium' ? 'Média Prioridade' : 'Baixa Prioridade'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleRisk(riskId) {
+            const index = data.selectedRisks.findIndex(r => r === riskId);
+            
+            if (index > -1) {
+                data.selectedRisks.splice(index, 1);
+            } else {
+                if (data.selectedRisks.length < 3) {
+                    data.selectedRisks.push(riskId);
+                } else {
+                    alert('Selecione no máximo 3 vulnerabilidades!');
+                    return;
+                }
+            }
+
+            // Atualizar visual
+            document.querySelectorAll('.risk-card').forEach(card => {
+                if (data.selectedRisks.includes(card.dataset.risk)) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+
+            updateSelectedRisks();
+            saveData();
+        }
+
+        function updateSelectedRisks() {
+            const container = document.getElementById('selectedRisksContainer');
+            const list = document.getElementById('selectedRisksList');
+
+            if (data.selectedRisks.length > 0) {
+                container.style.display = 'block';
+                list.innerHTML = data.selectedRisks.map(riskId => {
+                    const risk = risks.find(r => r.id === riskId);
+                    return `<p>• ${risk.icon} <strong>${risk.name}</strong></p>`;
+                }).join('');
+            } else {
+                container.style.display = 'none';
+            }
+
+            renderRiskProtectionPlan();
+        }
+
+        function renderRiskProtectionPlan() {
+            const container = document.getElementById('riskProtectionPlan');
+            
+            if (data.selectedRisks.length === 0) {
+                container.innerHTML = '<p style="color: #718096;">Selecione suas vulnerabilidades no passo anterior.</p>';
+                return;
+            }
+
+            const protections = {
+                saude: 'Pesquisar planos de saúde ou seguros complementares',
+                desemprego: 'Desenvolver segunda fonte de renda (Aula 9)',
+                veiculo: 'Considerar seguro auto com cobertura ampla',
+                imovel: 'Avaliar seguro residencial contra incêndio/roubo',
+                familia: 'Criar fundo específico para emergências familiares',
+                juridico: 'Considerar assistência jurídica ou seguro específico'
+            };
+
+            container.innerHTML = data.selectedRisks.map((riskId, index) => {
+                const risk = risks.find(r => r.id === riskId);
+                return `
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #667eea;">
+                        <div style="font-weight: 700; color: #2d3748; margin-bottom: 5px;">
+                            ${risk.icon} ${risk.name}
+                        </div>
+                        <div style="color: #4a5568; font-size: 0.9em;">
+                            <strong>Ação sugerida:</strong> ${protections[riskId]}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep === 1) calculateReserva();
+                
+                currentStep++;
+                showStep(currentStep);
+                updateProgressBar();
+                saveData();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgressBar();
+            }
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentStep - 1) / 3) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) step.classList.add('completed');
+                else if (index + 1 === currentStep) step.classList.add('active');
+            });
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                if (data.totalEssencial === 0) {
+                    alert('Preencha pelo menos uma despesa essencial!');
+                    return false;
+                }
+            }
+            
+            if (step === 3) {
+                if (data.selectedRisks.length === 0) {
+                    alert('Selecione pelo menos 1 vulnerabilidade!');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function showPrintView() {
+            const instituicao = document.getElementById('instituicaoRAI').value;
+            const depositoInicial = parseFloat(document.getElementById('depositoInicial').value) || 0;
+            const contribuicaoMensal = parseFloat(document.getElementById('contribuicaoMensal').value) || 0;
+
+            const mesesParaRAI = depositoInicial > 0 && contribuicaoMensal > 0 ? 
+                Math.ceil((data.reserva.rai - depositoInicial) / contribuicaoMensal) : 0;
+
+            const html = `
+                <div class="print-header">
+                    <h1 style="font-size: 2.5em;">🛡️ Plano de Blindagem Financeira</h1>
+                    <p style="font-size: 1.2em;">Revolução Financeira em 30 Dias</p>
+                    <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">${new Date().toLocaleDateString('pt-BR')}</p>
+                </div>
+
+                <div style="background: #fef3c7; padding: 25px; border-radius: 12px; border-left: 4px solid #f59e0b; margin-bottom: 30px;">
+                    <h2 style="color: #92400e; margin-bottom: 15px;">💰 Suas Despesas Essenciais</h2>
+                    <p style="color: #92400e; font-size: 2em; font-weight: 700;">${formatCurrency(data.totalEssencial)}/mês</p>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        ${Object.entries(data.expenses).map(([key, value]) => {
+                            if (value > 0) {
+                                const labels = {
+                                    moradia: '🏠 Moradia',
+                                    alimentacao: '🍽️ Alimentação',
+                                    transporte: '🚗 Transporte',
+                                    saude: '🏥 Saúde',
+                                    educacao: '🎓 Educação',
+                                    servicos: '💡 Serviços',
+                                    outros: '➕ Outros'
+                                };
+                                return `<p style="color: #4a5568; margin: 5px 0;">${labels[key]}: ${formatCurrency(value)}</p>`;
+                            }
+                            return '';
+                        }).join('')}
+                    </div>
+                </div>
+
+                <div style="background: #d1fae5; padding: 25px; border-radius: 12px; border-left: 4px solid #10b981; margin-bottom: 30px;">
+                    <h2 style="color: #065f46; margin-bottom: 15px;">📊 Sua Reserva Estratificada</h2>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #ef4444;">
+                        <p style="font-weight: 700; color: #2d3748;">📱 RAI - Acesso Imediato</p>
+                        <p style="font-size: 1.5em; color: #10b981; font-weight: 700;">${formatCurrency(data.reserva.rai)}</p>
+                        <p style="color: #718096; font-size: 0.9em;">Conta digital com liquidez instantânea</p>
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #f59e0b;">
+                        <p style="font-weight: 700; color: #2d3748;">💰 RCP - Curto Prazo</p>
+                        <p style="font-size: 1.5em; color: #10b981; font-weight: 700;">${formatCurrency(data.reserva.rcp)}</p>
+                        <p style="color: #718096; font-size: 0.9em;">CDBs liquidez diária ou Fundos DI</p>
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <p style="font-weight: 700; color: #2d3748;">🏦 RMP - Médio Prazo</p>
+                        <p style="font-size: 1.5em; color: #10b981; font-weight: 700;">${formatCurrency(data.reserva.rmp)}</p>
+                        <p style="color: #718096; font-size: 0.9em;">Tesouro Selic, CDBs, LCI/LCA</p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #a7f3d0, #6ee7b7); padding: 20px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                        <p style="color: #065f46; font-weight: 700; margin-bottom: 5px;">TOTAL DA RESERVA</p>
+                        <p style="font-size: 2.5em; color: #065f46; font-weight: 700;">${formatCurrency(data.reserva.total)}</p>
+                    </div>
+                    
+                    <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="color: #92400e; font-size: 0.9em; line-height: 1.6;">
+                            <strong>💡 Lembre-se:</strong> Esse é o mundo ideal! Priorize completar a <strong>RAI + RCP</strong> primeiro. 
+                            A RMP você constrói aos poucos. Meta mínima realista: 5 meses já resolve 85% das emergências!
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: #fee2e2; padding: 25px; border-radius: 12px; border-left: 4px solid #ef4444; margin-bottom: 30px;">
+                    <h2 style="color: #991b1b; margin-bottom: 15px;">⚠️ Suas Vulnerabilidades</h2>
+                    ${data.selectedRisks.map(riskId => {
+                        const risk = risks.find(r => r.id === riskId);
+                        return `<p style="color: #991b1b; margin: 8px 0;"><strong>${risk.icon} ${risk.name}</strong></p>`;
+                    }).join('')}
+                </div>
+
+                <div style="background: #e0e7ff; padding: 25px; border-radius: 12px; border-left: 4px solid #667eea; margin-bottom: 30px;">
+                    <h2 style="color: #4c51bf; margin-bottom: 15px;">🎯 Seu Plano de Ação</h2>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        <p style="font-weight: 700; color: #667eea; margin-bottom: 10px;">Primeira Ação - Iniciar RAI:</p>
+                        <p style="color: #4a5568; margin: 5px 0;">Instituição: <strong>${instituicao || 'A definir'}</strong></p>
+                        <p style="color: #4a5568; margin: 5px 0;">Depósito inicial: <strong>${formatCurrency(depositoInicial)}</strong></p>
+                        <p style="color: #4a5568; margin: 5px 0;">Contribuição mensal: <strong>${formatCurrency(contribuicaoMensal)}</strong></p>
+                        ${mesesParaRAI > 0 ? `<p style="color: #10b981; margin-top: 10px; font-weight: 600;">✅ RAI completa em aproximadamente ${mesesParaRAI} meses</p>` : ''}
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 8px;">
+                        <p style="font-weight: 700; color: #667eea; margin-bottom: 10px;">Proteções Prioritárias:</p>
+                        ${renderRiskProtectionPlanPrint()}
+                    </div>
+                </div>
+
+                <div style="background: #fef3c7; padding: 25px; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                    <h2 style="color: #92400e; margin-bottom: 15px;">💡 Lembre-se</h2>
+                    <p style="color: #92400e; line-height: 1.8;">
+                        A blindagem financeira não é pessimismo, mas <strong>prudência estratégica</strong>. 
+                        Você está construindo não apenas um caminho para seus sonhos, mas também uma <strong>fortaleza para protegê-los</strong>!
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #e9ecef; color: #718096;">
+                    <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>🛡️ Seus sonhos agora estão protegidos!</strong></p>
+                    <p style="font-size: 0.9em; margin-top: 20px; color: #667eea;"><strong>Revolução Financeira em 30 Dias</strong></p>
+                    <p style="font-size: 0.85em; color: #667eea;">Fernando Martins</p>
+                    <p style="font-size: 0.85em; color: #667eea;">Consultor Financeiro</p>
+                </div>
+            `;
+
+            document.getElementById('printContent').innerHTML = html;
+            document.getElementById('printView').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function renderRiskProtectionPlanPrint() {
+            const protections = {
+                saude: 'Pesquisar planos de saúde ou seguros complementares',
+                desemprego: 'Desenvolver segunda fonte de renda (Aula 9)',
+                veiculo: 'Considerar seguro auto com cobertura ampla',
+                imovel: 'Avaliar seguro residencial contra incêndio/roubo',
+                familia: 'Criar fundo específico para emergências familiares',
+                juridico: 'Considerar assistência jurídica ou seguro específico'
+            };
+
+            return data.selectedRisks.map(riskId => {
+                const risk = risks.find(r => r.id === riskId);
+                return `<p style="color: #4a5568; margin: 8px 0;">• ${risk.icon} <strong>${risk.name}:</strong> ${protections[riskId]}</p>`;
+            }).join('');
+        }
+
+        function closePrintView() {
+            document.getElementById('printView').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function downloadImage() {
+            // Esconde os botões temporariamente
+            const buttons = document.querySelector('.print-buttons');
+            buttons.style.display = 'none';
+            
+            const printContent = document.getElementById('printContent');
+            
+            // Configurações do html2canvas
+            html2canvas(printContent, {
+                scale: 2, // Qualidade alta
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                windowWidth: 800,
+                onclone: function(clonedDoc) {
+                    // Garante que o conteúdo clonado tenha o tamanho correto
+                    const clonedContent = clonedDoc.getElementById('printContent');
+                    clonedContent.style.width = '800px';
+                }
+            }).then(canvas => {
+                // Converte para imagem e baixa
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = 'blindagem-contra-crises-' + new Date().getTime() + '.png';
+                    link.href = url;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    
+                    // Mostra os botões novamente
+                    buttons.style.display = 'flex';
+                }, 'image/png');
+            }).catch(error => {
+                console.error('Erro ao gerar imagem:', error);
+                alert('Erro ao gerar imagem. Tente novamente.');
+                buttons.style.display = 'flex';
+            });
+        }
+
+        function saveData() {
+            localStorage.setItem('blindagem', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('blindagem');
+            if (saved) {
+                data = JSON.parse(saved);
+                
+                // Restaurar despesas
+                if (data.expenses) {
+                    Object.entries(data.expenses).forEach(([key, value]) => {
+                        const element = document.getElementById(key);
+                        if (element) element.value = value;
+                    });
+                    calculateEssential();
+                }
+
+                // Restaurar riscos selecionados
+                if (data.selectedRisks) {
+                    data.selectedRisks.forEach(riskId => {
+                        const card = document.querySelector(`[data-risk="${riskId}"]`);
+                        if (card) card.classList.add('selected');
+                    });
+                    updateSelectedRisks();
+                }
+            }
+        }
+
+        function restart() {
+            if (confirm('Criar novo plano? Os dados atuais serão perdidos.')) {
+                localStorage.removeItem('blindagem');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
