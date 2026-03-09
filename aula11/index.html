@@ -1405,8 +1405,48 @@
             document.body.style.overflow = 'auto';
         }
 
-        function printReport() {
-            window.print();
+        function downloadImage() {
+            // Verifica se html2canvas está carregado
+            if (typeof html2canvas === 'undefined') {
+                alert('Carregando biblioteca... Tente novamente em 2 segundos.');
+                return;
+            }
+            
+            // Esconde os botões temporariamente
+            const buttons = document.querySelector('.print-buttons');
+            buttons.style.display = 'none';
+            
+            const printContent = document.getElementById('printContent');
+            
+            // Configurações do html2canvas
+            html2canvas(printContent, {
+                scale: 2, // Qualidade alta
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                windowWidth: 800,
+                onclone: function(clonedDoc) {
+                    // Garante que o conteúdo clonado tenha o tamanho correto
+                    const clonedContent = clonedDoc.getElementById('printContent');
+                    clonedContent.style.width = '800px';
+                }
+            }).then(canvas => {
+                // Converte para imagem e baixa
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = 'sustentabilidade-sistema-' + new Date().getTime() + '.png';
+                    link.href = url;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    
+                    // Mostra os botões novamente
+                    buttons.style.display = 'flex';
+                }, 'image/png');
+            }).catch(error => {
+                console.error('Erro ao gerar imagem:', error);
+                alert('Erro ao gerar imagem. Tente novamente.');
+                buttons.style.display = 'flex';
+            });
         }
 
         function saveData() {
