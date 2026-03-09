@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa do Propósito - Revolução Financeira em 30 Dias</title>
     <style>
         * {
@@ -1045,9 +1045,9 @@
 
                 <div class="download-section">
                     <h3 style="margin-bottom: 20px; color: #2d3748;">✅ Parabéns! Seu Mapa está pronto!</h3>
-                    <p style="color: #718096; margin-bottom: 30px;">Visualize seu relatório completo e salve como imagem ou PDF!</p>
+                    <p style="color: #718096; margin-bottom: 30px;">Visualize seu relatório completo e baixe como imagem!</p>
                     <button class="download-button" onclick="showPrintView()">
-                        📄 Visualizar Relatório Completo
+                        🖼️ Ver e Baixar Relatório
                     </button>
                 </div>
 
@@ -1066,7 +1066,9 @@
     <!-- Visualização para Impressão/Print -->
     <div class="print-view" id="printView">
         <div class="print-buttons">
-            <button class="print-btn print-btn-primary" onclick="printReport()">🖨️ Imprimir/Salvar PDF</button>
+            <button class="print-btn print-btn-primary" onclick="downloadImage()" style="font-size: 1.1em;">
+                🖼️ Baixar Relatório
+            </button>
             <button class="print-btn print-btn-secondary" onclick="closePrintView()">✕ Fechar</button>
         </div>
         <div class="print-content" id="printContent">
@@ -1074,7 +1076,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         // Estado da aplicação
         let currentStep = 1;
@@ -2000,6 +2002,8 @@
                     <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>💡 Dica Importante</strong></p>
                     <p style="margin-bottom: 10px;">Mantenha este mapa visível diariamente para lembrar seus objetivos!</p>
                     <p style="font-size: 0.9em; margin-top: 20px; color: #667eea;"><strong>Revolução Financeira em 30 Dias</strong></p>
+                    <p style="font-size: 0.85em; color: #667eea;">Fernando Martins</p>
+                    <p style="font-size: 0.85em; color: #667eea;">Consultor Financeiro</p>
                 </div>
             `;
             
@@ -2013,13 +2017,42 @@
             document.body.style.overflow = 'auto';
         }
         
-        function printReport() {
-            try {
-                window.print();
-            } catch (error) {
-                alert('Erro ao tentar imprimir. Por favor, use Ctrl+P (Windows) ou Cmd+P (Mac) para imprimir.');
-                console.error('Erro ao imprimir:', error);
-            }
+        function downloadImage() {
+            // Esconde os botões temporariamente
+            const buttons = document.querySelector('.print-buttons');
+            buttons.style.display = 'none';
+            
+            const printContent = document.getElementById('printContent');
+            
+            // Configurações do html2canvas
+            html2canvas(printContent, {
+                scale: 2, // Qualidade alta
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                windowWidth: 800,
+                onclone: function(clonedDoc) {
+                    // Garante que o conteúdo clonado tenha o tamanho correto
+                    const clonedContent = clonedDoc.getElementById('printContent');
+                    clonedContent.style.width = '800px';
+                }
+            }).then(canvas => {
+                // Converte para imagem e baixa
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = 'mapa-proposito-' + new Date().getTime() + '.png';
+                    link.href = url;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    
+                    // Mostra os botões novamente
+                    buttons.style.display = 'flex';
+                }, 'image/png');
+            }).catch(error => {
+                console.error('Erro ao gerar imagem:', error);
+                alert('Erro ao gerar imagem. Tente novamente.');
+                buttons.style.display = 'flex';
+            });
         }
 
         // LocalStorage
