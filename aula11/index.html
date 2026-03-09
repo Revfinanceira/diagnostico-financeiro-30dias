@@ -1081,7 +1081,7 @@
                     <h3 style="margin-bottom: 20px; color: #2d3748;">✅ Sistema de Sustentabilidade Completo!</h3>
                     <p style="color: #718096; margin-bottom: 30px;">Salve seu Plano de Rituais e Scripts</p>
                     <button class="download-button" onclick="showPrintView()">
-                        📄 Ver Relatório Completo
+                        🖼️ Ver e Baixar Relatório
                     </button>
                 </div>
 
@@ -1100,12 +1100,15 @@
     <!-- Visualização para Impressão -->
     <div class="print-view" id="printView">
         <div class="print-buttons">
-            <button class="print-btn print-btn-primary" onclick="printReport()">🖨️ Imprimir/Salvar PDF</button>
+            <button class="print-btn print-btn-primary" onclick="downloadImage()" style="font-size: 1.1em;">
+                🖼️ Baixar Relatório
+            </button>
             <button class="print-btn print-btn-secondary" onclick="closePrintView()">✕ Fechar</button>
         </div>
         <div class="print-content" id="printContent"></div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         let currentStep = 1;
         let schedule = {};
